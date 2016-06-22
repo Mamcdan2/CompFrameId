@@ -1,0 +1,160 @@
+# Standard namespaces 
+@prefix  rdf:         <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix  rdfs:        <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix  foaf:        <http://xmlns.com/foaf/0.1/>.
+
+# For lat(itude), long(itude) and other info about spatially-located things, 
+# using World Geodetic System WGS84 as a reference datum 
+#   See http://www.w3.org/2003/01/geo/
+@prefix  geo:         <http://www.w3.org/2003/01/geo/wgs84_pos#>.
+
+#####################################################################
+
+# Name spaces controlled by us
+#       Schema for situations
+@prefix  sitterms:     <http://esterline.ncat.edu/identity#>. 
+#                    Situation id numbers
+@prefix  sit:         <http://esterline.ncat.edu/sit#>. 
+
+#       Schema for records
+@prefix  recterms: <http://esterline.ncat.edu/personalrecords#>. 
+#                    Id numbers of records of suspects 
+@prefix  rec:         <http://esterline.ncat.edu/personalrecords#>. 
+#                    Id numbers for police records (Removed, replaced by rec)
+#@prefix  precord:     <http://esterline.ncat.edu/policerecord#>.
+#                    Id numbers of persons of interest (Replaced by rec)
+#@prefix  poi:         <http://esterline.ncat.edu/personofinterest#>. 
+
+#       Schema for objects
+@prefix  objectterms: <http://esterline.ncat.edu/objects#>.
+#                    Id numbers for furniture
+@prefix  fobject:     <http://esterline.ncat.edu/furnitureobjects#>. 
+
+#       Schema for law enforcement officers
+@prefix  lawterms:    <http://esterline.ncat.edu/lawenforcement#>.
+#                    Id numbers of police officiers
+@prefix  officer:     <http://esterline.ncat.edu/officeronduty#>.
+
+#       SKOS biometric schema 
+@prefix  biom:        <http://esterline.ncat.edu/biometric#>.
+#                    Mugshot id numbers--NOT FOR FINGERPRINT
+#@prefix  mshot:       <http://esterline.ncat.edu/mugshot#>. 
+#                    Id numbers of forensic photos---NOT FOR FINGERPRINT
+#@prefix  fshot:       <http://esterline.ncat.edu/forensicshot#>.
+#                    Id numbers for fingerprints on file
+@prefix  fpfile:      <http://esterline.ncat.edu/fpfile#>.
+#                    Id numbers of forensic fingerprints
+@prefix  forensicfp:  <http://esterline.ncat.edu/forensicfp#>.
+
+#       Schema for members of the public
+@prefix  public:      <http://esterline.ncat.edu/public#>. 
+#                    Id numbers of people "in the system"
+@prefix  insys:       <http://esterline.ncat.edu/insystem#>.
+
+#       Schema for human anatomy
+@prefix  anatomy:      <http://esterline.ncat.edu/anatomy#>.
+#                     Id numbers of friction ridge patterns
+@prefix  frictionRs:      <http://esterline.ncat.edu/public#>.
+
+#       Schema for procedures [UPDATE] 
+@prefix  procterms:        <http://esterline.ncat.edu/procedures#>.
+#                    Id numbers for procedures that measure similarity
+@prefix  similar:     <http://esterline.ncat.edu/similarity#>.
+
+###################################################################
+
+# The situations 
+#  s1: The id-siutation where the fingerprint on the doorknob is
+#         matched against the one on file
+#  s3: Where an officer takes a person's fingerprint on file
+#  s4: Where someone leaves a fingerprint on the doorknob
+
+###################################################################
+
+# Typing information
+officer:117 a lawterms:ForensicAnalyst; # The analyst in the id-situation (s1)
+    foaf:name "Rita Flores".
+
+officer:296 a lawterms:AdminOfficer;    # The taking the fingerprint on file (s3)
+    foaf:name "Shelby Brown".
+
+insys:201 a foaf:Suspect;               # The suspect (s1, s3, s4)
+    recterms:hasRecord rec:578.
+
+fobject:409 a objectterms:Doorknob;     # The doorknob (s1, s4)
+    rdfs:label "Doorknob with Forensic Fingerprint".
+
+###################################################################
+
+# The fingerprints
+fpfile:496 a biom:FingerPrintImage;       # The fingerprint on file (s1, s3)
+    rdfs:label   "Rob Stewart File, SS:000-00-0000 ";
+	biomaux:imageLabelabel "John Doe"^^xsd:string;
+    foaf:depicts frictionRs:324;  # Not "represents"
+    foaf:maker   officer:296.
+
+frictionRs:324 a anatomy:FrictionRidges;
+    biom:frictionRsRightIndexOf insys:201.
+
+forensicfp:822 a biom:FingerPrintImage;   # fingrprint at the scene (s1, s4)
+    rdfs:label "Unknown FingerPrint Owner";
+    foaf:depicts frictionRs:324 .
+
+###################################################################
+
+# The record 
+rec:578 a recterms:PoliceRecord;
+    foaf:name            "Rob Stewart, SS:000-00-0000";
+    biom:hasFpImage      fpfile:496.
+#   biom:hasFacialImage  mshot:314.
+
+################################################################
+
+# The id-siutation with the fingerprint on the doorknob
+sit:s1 a sitterms:Situation;
+    sitterms:supportsInfon  _:i1;
+    sitterms:supportsInfon  _:i14;
+    sitterms:supportsInfon  _:i1a;
+    sitterms:spacialLoc sit:matchLoc;
+    sitterms:tempLoc    sit:matchTime.
+
+_:i1 a sitterms:AnalystMatchingFpInfon;
+    sitterms:fpAnalyst officer:117;
+    sitterms:fpObserved forensicfp:822;
+    sitterms:fpRecorded fpfile:496;
+    sitterms:hasPolairty  sitterms:PositivePolarity.
+
+_:i1a a sitterms::SimilarFpInfon;
+    sitterms:fpObserved forensicfp:822;
+    sitterms:fpRecorded fpfile:496;
+    sitterms:simMeasure "0.94";
+    sitterms:simProc similar:Proc1;
+    sitterms:hasPolairty  sitterms:PositivePolarity.
+
+_:i14 a sitterms:OnInfon;
+    sitterms:hasOn forensicfp:822;
+    sitterms:isOn fobject:409;
+    sitterms:hasPolairty  sitterms:PositivePolarity.
+
+# -----------------------------------------------
+
+# The situation where an officer takes a person's fingerprint
+sit:s3 a sitterms:Situation;
+    sitterms:supportsInfon   _:i3;
+    sitterms:spacialLoc sit:fpFileLoc;
+    sitterms:tempLoc    sit:fpFileTime. 
+
+_:i3 a sitterms:TakeFpInfon;
+    sitterms:fpSubject insys:201;
+    sitterms::fpRecorded fpfile:496;
+    sitterms:fpTakingOfficer officer:296;
+    sitterms:hasPolairty  sitterms:PositivePolarity.
+
+# --------------------------------------------
+
+# The situation where someone leaves a fingerprint
+# NOTE: This does NOT include someone recording the fingerprint.
+sit:s4 a sitterms:Situation;
+    sitterms:supportsInfon   _:i14;
+    sitterms:spacialLoc sit:socialLoc;
+    sitterms:tempLoc    sit:socialTime.
