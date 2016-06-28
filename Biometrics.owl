@@ -1,0 +1,39 @@
+@prefix core: <http://www.w3.org/2004/02/skos/core#>.
+@prefix foaf: <http://xmlns.com/foaf/0.1/>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix : <http://esterline.ncat.edu/identity/biometric#>.
+
+<http://esterline.ncat.edu/identity/biometric#> a owl:Ontology.
+
+:BiometricImage a core:Concept;
+	core:broader foaf:Image;
+	core:narrower :FacialImage,
+		:IrisImage,
+		:PeriocularImage,
+		:FingerprintImage,
+		:HandImage;
+	core:prefLabel "Biometric Image"@en-US;
+	core:scopeNote ""@en-US.
+:FacialImage a core:Concept;
+	core:prefLabel "Facial Image"@en-US.
+:IrisImage a core:Concept;
+	core:prefLabel "Iris Image"@en-US.
+:PeriocularImage a core:Concept;
+	core:prefLabel "Periocular Image"@en-US.
+:FingerprintImage a core:Concept;
+	core:prefLabel "Fingerprint Image"@en-US.
+:HandImage a core:Concept;
+	core:prefLabel "Hand Image"@en-US.
+:hasOrientation a owl:ObjectProperty;
+	rdfs:domain :FacialImage.
+
+:Orientation a owl:Class.
+:width a owl:DatatypeProperty.
+:height a owl:DatatypeProperty.
+:bitDepth a owl:DatatypeProperty.
+:ImageLightingType a owl:Class.
+:imageLighting a owl:ObjectProperty;
+	rdfs:domain :ImageLightingType.
+:wavelength a owl:DatatypeProperty;
+	rdfs:domain :IrisImage.

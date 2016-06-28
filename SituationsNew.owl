@@ -1,0 +1,225 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix geo: <http://www.w3.org/2003/01/geo/wgs84_pos#>.
+
+@prefix  objectterms: <http://esterline.ncat.edu/objects#> .
+@prefix lawterms: <http://esterline.ncat.edu/lawenforcement#>.
+@prefix biom: <http://esterline.ncat.edu/biometric#>.
+@prefix procterms: <http://esterline.ncat.edu/procedures#>.
+
+#       Schema for members of the public
+@prefix  public:      <http://esterline.ncat.edu/public#>. 
+#                    Id numbers of people "in the system"
+@prefix  insys:       <http://esterline.ncat.edu/insystem#>.
+
+#       Complementing biometrics
+@prefix  biomaux:     <http://esterline.ncat.edu/biometric_auxilliary#>.
+
+:Situation a rdfs:Class.
+
+:tempLoc a rdf:Property;
+    rdfs:domain :Situation;
+    rdfs:range :Temp.
+:Temp a rdfs:Class;
+    rdfs:subClassOf geo:TemporalThing.
+
+:spacialLoc a rdf:Property;
+    rdfs:domain :Situation;
+    rdfs:range :Loc.
+:Loc a rdfs:Class;
+    rdfs:subClassOf geo:SpatialThing.
+
+:hasInfon a rdf:Property;
+    rdfs:domain :Situation;
+    rdfs:range  :Infon.
+
+:Infon a rdfs:Class. 
+
+:hasPolarity a rdf:Property;
+    rdfs:domain :Infon;
+    rdfs:range :Polarity.
+:Polarity a rdfs:Class.
+:PositivePolarity a :Polarity.
+:NegativePolarity a :Polarity.
+
+:IdSituation rdfs:subClassOf :Situation .
+:mainCharacter a ref:Property;
+    rdfs:domain :IdSituation; 
+    rdfs:range foaf:Agent .
+
+
+######################################################################
+# General 
+
+# Something is on something else
+:OnInfon rdfs:subClassOf :Infon .
+:isOn  a rdf:Property;
+    rdfs:domain :OnInfon;
+    rdfs:range  owl:Thing. 
+:hasOn  a rdf:Property;
+    rdfs:domain  :OnInfon;
+    rdfs:range  owl:Thing .
+
+# Something is in a situation
+:inSituation a rdf:Property;
+    rdfs:domain :Situation .
+
+# We've attached a name to (the main character in) the situation
+:labled a rdf:Property;
+    rdfs:domain :Situation;
+	rdfs:range foaf:name .
+
+# Something is in a situation
+#:InSitInfon rdfs:subClassOf :Infon .
+#:inSituation a rdf:Property;
+#    rdfs:domain :InSitInfon;
+#    rdfs:range :Situation .
+#:situationHas a rdf:Property;
+#    rdfs:domain :InSitInfon .
+#:situationHasGroup rdfs:subPropertyOf :situationHas;
+#    refs:range  foaf:Group .
+#:situationHasAgent rdfs:subPropertyOf :situationHas;
+#    rdfs:range  foaf:Agent .
+
+#######################################################################
+# Relating to fingerprints
+
+# The fingerprints are paired
+:MatchingFpInfon rdfs:subClassOf :Infon.
+:fpObserved a rdf:Property;
+    rdfs:domain :MatchingFpInfon;
+    rdfs:range  biom:FingerprintImage;
+    a owl:FunctionalProperty .
+:fpRecorded a rdf:Property;
+    rdfs:domain :Infon;  # Either :MatchingFpInfon or :SimilarFpInfon
+    rdfs:range  biom:FingerprintImage;
+    a owl:FunctionalProperty .
+
+# The analyst is matching the fingerprints 
+:AnalystMatchingFpInfon rdfs:subClassOf :MatchingFpInfon.
+:fpAnalyst a rdf:Property;
+    rdfs:domain :AnalystMatchingFpInfon;
+    rdfs:range  lawterms:ForensicAnalyst; 
+    a owl:FunctionalProperty .
+
+# There's a given level of similarity between the fingerprint on file
+#   and that at the scene
+:SimilarFpInfon rdfs:subClassOf :MatchingFpInfon.
+:simFpMeasure a rdf:Property;
+    rdfs:domain :SimilarFpInfon;
+    rdfs:range xsd:decimal; 
+    a  owl:FunctionalProperty .
+:simFpProc a rdf:Property;
+    rdfs:domain :SimilarFpInfon;
+    rdfs:range  procterms:Procedure; 
+    a  owl:FunctionalProperty .
+
+# The officer takes (on file) the fingerprint of the suspect
+:TakeFpInfon rdfs:subClassOf :Infon.
+:fpSubject a rdf:Property;
+    rdfs:domain :TakeFpInfon;
+    rdfs:range  public:Suspect; 
+    a  owl:FunctionalProperty . 
+:fpRecorded a rdf:property;
+    rdfs:domain :TakeFpInfon;
+    rdfs:range biom:FingerPrintImage; 
+    a  owl:FunctionalProperty, owl:InverseFunctionalProperty .  
+:fpTakingOfficer a rdf:Property;
+    rdfs:domain :TakeFpInfon;
+    rdfs:range  lawterms:AdminOfficier; 
+    a owl:FunctionalProperty .  
+
+# The culprit leaving the fingerprint on the doorknob
+:LeaveFpInfon rdfs:subClassOf :Infon.
+:fpProducer a rdf:Property;
+    rdfs:domain :LeaveFpInfon;
+    rdfs:range public:Suspect; 
+    a  owl:FunctionalProperty .
+:fpLeft a rdf:Property;
+    rdfs:domain :LeaveFpInfon;
+    rdfs:range  biom:FingerPrintImage;
+    a  owl:InverseFunctionalProperty .
+:fpOn a rdf:Property;
+    rdfs:domain :LeaveFpInfon;
+    rdfs:range  owl:Thing;
+    a  owl:FunctionalProperty . 
+
+###################################################### 
+# Relating to pictures
+
+# The pictures are paired
+:MatchingPicInfon rdfs:subClassOf :Infon.
+:picObserved a rdf:Property;
+    rdfs:domain :MatchingPicInfon;
+    rdfs:range  biom:FacialImage;
+    a  owl:FunctionalProperty .
+:picRecorded a rdf:Property;
+    rdfs:domain :Infon;  # Either :MatchingPicInfon or :SimilarPicInfon 
+    rdfs:range  biom:FacialImage;
+    a  owl:FunctionalProperty .
+
+# The analyst is matching the pictures 
+:AnalystMatchingPicInfon rdfs:subClassOf :MatchingPicInfon.
+:picAnalyst a rdf:Property;
+    rdfs:domain :AnalystMatchingPicInfon;
+    rdfs:range  lawterms:ForensicAnalyst;
+    a  owl:FunctionalProperty .
+
+# There's a given level of similarity between the fingerprint on file
+#   and that at the scene
+:SimilarPicInfon rdfs:subClassOf :MatchingPicInfon.
+:simPicMeasure a rdf:Property;
+    rdfs:domain :SimilarPicInfon;
+    rdfs:range xsd:decimal;
+    a owl:FunctionalProperty .
+:simPicProc a rdf:Property;
+    rdfs:domain :SimilarPicInfon;
+    rdfs:range  procterms:Procedure;
+    a  owl:FunctionalProperty .
+
+# The officer takes (on file) the mugshot of the suspect
+:TakeMugshotInfon rdfs:subClassOf :Infon.
+:mugSubject a rdf:Property;
+    rdfs:domain :TakeMugshotInfon;
+    rdfs:range  public:Suspect; 
+    a owl:FunctionalProperty .
+:mugRecorded a rdf:property;
+    rdfs:domain :TakeMugshotInfon;  
+    rdfs:range biom:FacialImage;
+    a  owl:FunctionalProperty,  owl:InverseFunctionalProperty .
+:mugTakingOfficer a rdf:Property;
+    rdfs:domain :TakeMugshotInfon;
+    rdfs:range  lawterms:AdminOfficier;
+    a  owl:FunctionalProperty .
+:mugCamera a rdf:Property;
+    rdfs:domain :TakeMugshotInfon;
+    rdfs:range objectterms:Camera;
+    a owl:FunctionalProperty .
+
+# The culprit being photographed as part of the group
+:ForensicPicInfon rdfs:subClassOf :Infon .
+:forPhotographer
+    rdfs:domain :ForensicPicInfon;
+    rdfs:range  lawterms:AdminOfficier; 
+    a  owl:FunctionalProperty .
+:forCamera
+    rdfs:domain :ForensicPicInfon;
+    rdfs:range objectterms:Camera;
+    a owl:FunctionalProperty .
+:picturedSit
+    rdfs:domain  :ForensicPicInfon;
+    rdfs:range  :Situation; 
+    a  owl:FunctionalProperty .
+# We expect to use :InSitInfon with :situationHas here to say what 
+# (group of) suspects is/are in what situations
+:forPicProduced 
+    rdfs:domain  :ForensicPicInfon;
+    rdfs:range  biom:GroupImage;     # NEW: biom:GroupImage
+    a  owl:FunctionalProperty, owl:InverseFunctionalProperty .
+# We expect to use biom:picIncludedIn (STILL TO DEFINE) to indicate 
+# inclusion of biom:FacialImage in biom:GroupImage
+# Note that there is the domain problem of matching biom:FacialImage
+# with an agent in the situation 

@@ -1,0 +1,20 @@
+# Standard namespaces 
+@prefix  rdf:         <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix  rdfs:        <http://www.w3.org/2000/01/rdf-schema#>.
+
+# For part-whole relations
+#  See 
+#  http://answers.semanticweb.com/questions/22793/representing-aggregation-in-owl
+@prefix mereo: <http://www.knowledgesmarts.com/ontologies/mereology#>.
+
+####################################################################
+
+# Name spaces controlled by us
+#       Schema for situations
+@prefix  sitterms:     <http://esterline.ncat.edu/identity#>. 
+#                    Situation id numbers
+@prefix  sit:         <http://esterline.ncat.edu/sit#>. 
+
+#####################################################################
+  
+sit:s4 mereo:properPartOf sit:s5. 

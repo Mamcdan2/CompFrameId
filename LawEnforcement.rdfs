@@ -1,0 +1,13 @@
+@prefix  rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix  rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix  foaf: <http://xmlns.com/foaf/0.1/>.
+@prefix  :     <http://esterline.ncat.edu/lawenforcement#>.
+
+:LawEnforcement a rdfs:Class. # What is this for?
+
+:Officer a rdfs:Class;
+    rdfs:subClassOf foaf:Person.
+	
+:AdminOfficer    rdfs:subClassOf :Officer.
+:Investigator    rdfs:subClassOf :Officer.
+:ForensicAnalyst rdfs:subClassOf :Officer.

@@ -1,0 +1,33 @@
+# Standard namespaces 
+@prefix  rdf:         <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix  rdfs:        <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix  foaf:        <http://xmlns.com/foaf/0.1/>.
+@prefix  owl:         <http://www.w3.org/2002/07/owl#> .
+@prefix  xsd:         <http://www.w3.org/2001/XMLSchema#> .
+
+#       Schema for human anatomy
+@prefix  anatomy:      <http://esterline.ncat.edu/anatomy#>.
+
+#       SKOS biometric schema 
+@prefix  biom:        <http://esterline.ncat.edu/biometric#>.
+
+#       Additional biometric vocabulary 
+@prefix :  <http://esterline.ncat.edu/biometric_auxilliary#>.
+
+:GroupImage a rdfs:Class .
+
+:picIncludedIn a rdf:Property;
+    rdfs:domain biom:FacialImage;
+    rdfs:range :GroupImage;
+    a owl:FunctionalProperty .
+
+:frictionRsRightIndexOf a rdf:Property;
+    rdfs:domain anatomy:FrictionRidges; 
+	rdfs:range foaf:Person;
+	a owl:FunctionalProperty, owl:InverseFunctionalProperty .
+
+:imageLabel a rdf:Property;
+    rdfs:domain biom:BiometricImage;
+    rdfs:range xsd:literal .
+
+# Additional info on mugshots and filed fingerprints

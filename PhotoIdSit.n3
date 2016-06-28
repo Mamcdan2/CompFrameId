@@ -1,0 +1,236 @@
+# Standard namespaces   
+@prefix  rdf:         <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix  rdfs:        <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix  foaf:        <http://xmlns.com/foaf/0.1/>.
+@prefix  xsd:         <http://www.w3.org/2001/XMLSchema#> .
+
+# For lat(itude), long(itude) and other info about spatially-located things, 
+# using World Geodetic System WGS84 as a reference datum 
+#   See http://www.w3.org/2003/01/geo/
+@prefix  geo:         <http://www.w3.org/2003/01/geo/wgs84_pos#>.
+
+# For spatial relations 
+#   See geovocab.org/doc/survey.html
+@prefix  spatial:     <http://linkeddata.com.ar/spatial#> .
+
+# For time intervals and their relations
+#   See http://www.w3.org/TR/owl-time/
+#   This isn't consistent with what little relates to time in geo:
+@prefix  time:    <http://www.w3.org/2006/time#>.
+
+# For part-whole relations   || Check that we need this here.
+#  See 
+#  http://answers.semanticweb.com/questions/22793/representing-aggregation-in-owl
+@prefix mereo:<http://www.knowledgesmarts.com/ontologies/mereology#>.
+# COMMENT: [Do we need this here? It's in the EDF docment linking s4 and s5.]
+
+##########################################################################
+
+# Name spaces controlled by us
+#       Schema for situations
+@prefix  sitterms:     <http://esterline.ncat.edu/identity#>. 
+#                    Situation id numbers
+@prefix  sit:         <http://esterline.ncat.edu/sit#>. 
+
+#       Schema for records
+@prefix  recterms: <http://esterline.ncat.edu/personalrecords#>. 
+#                    Id numbers of records of suspects 
+@prefix  rec:         <http://esterline.ncat.edu/personalrec#>. 
+#                    Id numbers for police records (Removed, replaced by rec)
+#@prefix  precord:     <http://esterline.ncat.edu/policerecord#>.
+#                    Id numbers of persons of interest (Removed, replaced by rec)
+#@prefix  poi:         <http://esterline.ncat.edu/personofinterest#>. 
+
+#       Schema for objects
+@prefix  objectterms: <http://esterline.ncat.edu/objects#>.
+#                    Id numbers for tools/apparatus
+@prefix  aobject:     <http://esterline.ncat.edu/apparatusobjects#>. 
+#                    Id numbers for furniture
+@prefix  fobject:     <http://esterline.ncat.edu/furnitureobjects#>.
+
+#       Schema for law enforcement officers
+@prefix  lawterms:    <http://esterline.ncat.edu/lawenforcement#>.
+#                    Id numbers of police officers
+@prefix  officer:     <http://esterline.ncat.edu/officeronduty#>.
+
+#       SKOS biometric schema 
+@prefix  biom:        <http://esterline.ncat.edu/biometric#>.
+#                    Mugshot id numbers
+@prefix  mshot:       <http://esterline.ncat.edu/mugshot#>. 
+#                    Id numbers of forensic photos
+@prefix  fshot:       <http://esterline.ncat.edu/forensicshot#>.
+#                    Id numbers for fingerprints on file--NOT FOR PHOTOS
+#@prefix  fpfile:      <http://esterline.ncat.edu/fpfile#>.
+#                    Id numbers of forensic fingerprints--NOT FOR PHOTOS
+#@prefix  forensicfp:  <http://esterline.ncat.edu/forensicfp#>.
+
+#       Complementing biom
+@prefix  biomaux:      <http://esterline.ncat.edu/biometric_auxilliary#>.
+
+#       Schema for members of the public
+@prefix  public:      <http://esterline.ncat.edu/public#>. 
+#                    Id numbers of people "in the system"
+@prefix  insys:       <http://esterline.ncat.edu/insystem#>.
+#                    Id numbers for groups
+@prefix  group:       <http://esterline.ncat.edu/group#>.
+
+#       Schema for procedures
+@prefix  procterms:        <http://esterline.ncat.edu/procedures#>.
+#                    Id numbers for procedures that measure similarity
+@prefix  similar:     <http://esterline.ncat.edu/similarity#>.
+
+###################################################################
+
+# The situations:
+#  s2:  The id-siutation with the face in the group shot matching with the mug shot
+#  s5:  Where a group photo was taken
+#  s5a: The situation that is photographed in situation s5
+#  s6:  Where a mugshot was created and filed
+
+################################################################
+
+# Typing information
+officer:118 a lawterms:ForensicAnalyst; # The analyst in the id-situation (s2)
+    foaf:name  "Joe Friday".     # CHANGE: From '117' to '118' so different from s1
+
+officer:622 a lawterms:AdminOfficer;    # The officer taking the mugshot (s6)
+    foaf:name "Helen Rogers".
+
+insys:201 a foaf:Suspect;               # The suspect (in s2, s5, s6)
+    recterms:hasRecord rec:578.      # SAME as in s1, s3, s4
+
+insys:563 a foaf:Person.                 # The guy in the photographed group with insys:201
+
+fobject:409 a objectterms:Doorknob;     # The doorknob (s2 and s5a)
+    rdfs:label "Doorknob with Forensic Fingerprint".
+
+aobject:camera-15 a objectterms:Camera; # The camera in s5 (group photo)
+    rdfs:label "Investigator camera".
+        
+aobject:camera-05 a objectterms:Camera; # The camera in s6 (mugshot)
+    rdfs:label "Mugshot camera".
+
+similar:sim2 a procterms:SimilarityProcedure; # The similarity-measuring procedure
+    rdfs:label "Procedure to measure the similarity of facial images".
+
+###############################################################
+
+# The photos
+fshot:812 a biomaux:GroupImage;       # The group photo (s2, s5)
+    foaf:maker    officer:753;
+    foaf:depicts  sit:s5a;
+    rdfs:label    "Group Photo Forensic".
+
+# In s2 and s5, the photo of the culprit is part of the group photo
+fshot:8121 a biom:FacialImage;
+    foaf:depicts  insys:201;
+    # mereo:properPartOf  fshot:812; 
+    biomaux:picIncludedIn fshot:812; # (STILL TO DEFINE biom:picIncluded)
+    rdfs:label    "The part of the group photo depicting the culprit".
+
+mshot:314 a biom:FacialImage;       # The mugshot
+    rdfs:label "Rob Stewart Facial Mug Shot";
+	biomaux:imageLabel "John Doe"^^xsd:string;
+    foaf:depicts insys:201;
+    foaf:maker officer:622. 
+
+###############################################################
+
+# The record 
+rec:578 a recterms:PoliceRecord;
+    foaf:name            "Rob Stewart, SS:000-00-0000";
+#   biom:hasFpImage      fpfile:496.
+    biom:hasFacialImage  mshot:314.
+
+#############################################################
+
+# Situation Mereology
+# sit:s5a is spatially contained in sit:s5
+sit:socialLocSub spatial:isProperPartOf sit:socialLoc.
+
+# sit:s5, being the snapshot situation, is temporally contained in sit:s5a 
+sit:socialTime time:intervalDuring sit:socialTimeSup. 
+
+# Do we want to say one situation is part of another? (See mereo:)
+#    But they can be contained differently spatially and temporally
+
+###################################################################
+
+# The id-siutation with the face in the group shot matching with the mug shot
+
+sit:s2 a sitterms:Situation;
+    sitterms:hasInfon   _:i2;
+    sitterms:hasInfon   _:i2a;
+    sitterms:hasInfon   _:i2b;
+    sitterms:spacialLoc sit:matchLoc;
+    sitterms:tempLoc    sit:matchTime.
+
+_:i2 a sitterms:AnalystMatchingPicInfon; 
+    sitterms:picAnalyst officer:118; # The officer-analyst
+    sitterms:picObserved fshot:8121; # The part of the forensic group photo 
+                                     #    depicting our guy
+    sitterms:picRecorded mshot:314;  # The mug shot
+    sitterms:hasPolairty  sitterms:PositivePolarity. 
+    
+_:i2a a sitterms:SimilarPicInfon;
+    sitterms:picObserved fshot:8121;  # Relevant part of the forensic group photo
+    sitterms:picRecorded mshot:314;   # The mug shot
+    sitterms:simPicMeasure "0.97";    # The similarity measure between the 2
+    sitterms:simPicProc similar:sim2; # The procedure computing the similarity
+    sitterms:hasPolairty  sitterms:PositivePolarity . 
+
+# -----------------------------------------------       
+
+# The situation where a group photo was taken
+
+sit:s5 a sitterms:Situation;
+    sitterms:hasInfon   _:i5;
+    sitterms:spacialLoc sit:socialLoc;
+    sitterms:tempLoc    sit:socialTime.
+
+_:15 a sitterms:ForensicPicInfon;
+    sitterms:forPhotographer officer:753;  # The person taking the photo
+    sitterms:forCamera  aobject:camera-15; # The camera used
+    sitterms:picturedSit  sit:s5a;         # The situation photographed
+    sitterms:forPicProduced  fshot:812;    # The resulting photo
+    sitterms:hasPolairty  sitterms:PositivePolarity. 
+
+# -----------------------------------------------
+
+# The situation that is photographed in situation sit:s5
+# There is a group two members of which are insys:201 (our culprit)
+# and insys:563. And insys:201 is touching the doorknob.
+
+sit:s5a a sitterms:Situation;
+    sitterms:hasInfon   _:i5a, _:i5b;
+    sitterms:inSituation group:5342;
+    sitterms:spacialLoc sit:socialLocSub;
+    sitterms:tempLoc    sit:socialTimeSup .
+
+#_:i5 a sitterms:InSitInfon;
+#    sitterms:inSituation sit:s5a;
+#    sitterms:situationHas group:5342;
+#    sitterms:hasPolarity sitterms:PositivePolarity .
+
+group:5342 a foaf:Group;
+    foaf:member insys:201, insys:563.
+
+_:i5b a sitterms:TouchInfon;
+    sitterms:toucher insys:201;
+    sitterms:touched fobject:409;
+    sitterms:hasPolarity sitterms:PositivePolarity .
+
+# -----------------------------------------------                   
+            
+# The situation where a mugshot was created and filed
+sit:s6 a sitterms:Situation;                                                        
+    sitterms:hasInfon   _:i6;
+    sitterms:spacialLoc sit:facePicLoc;
+    sitterms:tempLoc    sit:facePicTime.
+
+_:i6 a sitterms:TakeMugshotInfon;
+    sitterms:mugSubject insys:201;
+    sitterms:mugRecorded mshot:314;
+    sitterms:mugTakingOfficer officer:622;
+    sitterms:mugCamera aobject:camera-05;
+    sitterms:hasPolarity sitterms:PositivePolarity .

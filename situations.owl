@@ -1,0 +1,471 @@
+@prefix : <http://www.semanticweb.org/ravenlab/ontologies/2015/6/siutationthoery.owl#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://www.semanticweb.org/ravenlab/ontologies/2015/6/siutationthoery.owl> .
+
+<http://www.semanticweb.org/ravenlab/ontologies/2015/6/siutationthoery.owl> rdf:type owl:Ontology ;
+                                                                            
+                                                                            owl:imports <http://esterline.ncat.edu/identity/biometric#> .
+
+
+#################################################################
+#
+#    Object Properties
+#
+#################################################################
+
+
+###  http://www.semanticweb.org/ravenlab/ontologies/2015/6/siutationthoery.owl#argument
+
+:argument rdf:type rdfs:ContainerMembershipProperty ;
+          
+          rdfs:domain :Argument ;
+          
+          rdfs:subPropertyOf :hasArguments .
+
+
+
+###  http://www.semanticweb.org/ravenlab/ontologies/2015/6/siutationthoery.owl#faceAnalyst
+
+:faceAnalyst rdf:type owl:ObjectProperty ;
+             
+             rdfs:domain :AnalystMatchingFpInfon .
+
+
+
+###  http://www.semanticweb.org/ravenlab/ontologies/2015/6/siutationthoery.owl#faceAppears
+
+:faceAppears rdf:type owl:ObjectProperty ;
+             
+             rdfs:range <http://esterline.ncat.edu/identity/biometric#FacialImage> ;
+             
+             rdfs:domain :FaceAppearsInfon .
+
+
+
+###  http://www.semanticweb.org/ravenlab/ontologies/2015/6/siutationthoery.owl#faceBelongsTo
+
+:faceBelongsTo rdf:type owl:ObjectProperty ;
+               
+               rdfs:domain :FaceAppearsInfon .
+
+
+
+###  http://www.semanticweb.org/ravenlab/ontologies/2015/6/siutationthoery.owl#faceObserved
+
+:faceObserved rdf:type owl:ObjectProperty ;
+              
+              rdfs:range <http://esterline.ncat.edu/identity/biometric#FacialImage> ;
+              
+              rdfs:domain :MatchingFaceInfon .
+
+
+
+###  http://www.semanticweb.org/ravenlab/ontologies/2015/6/siutationthoery.owl#faceOn
+
+:faceOn rdf:type owl:ObjectProperty ;
+        
+        rdfs:domain :FaceAppearsInfon ;
+        
+        rdfs:range owl:Thing .
+
+
+
+###  http://www.semanticweb.org/ravenlab/ontologies/2015/6/siutationthoery.owl#fpAnalyst
+
+:fpAnalyst rdf:type owl:ObjectProperty ;
+           
+           rdfs:domain :AnalystMatchingFpInfon .
+
+
+
+###  http://www.semanticweb.org/ravenlab/ontologies/2015/6/siutationthoery.owl#fpLeft
+
+:fpLeft rdf:type owl:ObjectProperty ;
+        
+        rdfs:range <http://esterline.ncat.edu/identity/biometric#FingerprintImage> ;
+        
+        rdfs:domain :LeaveFpInfon .
+
+
+
+###  http://www.semanticweb.org/ravenlab/ontologies/2015/6/siutationthoery.owl#fpObserved
+
+:fpObserved rdf:type owl:ObjectProperty ;
+            
+            rdfs:range <http://esterline.ncat.edu/identity/biometric#FingerprintImage> ;
+            
+            rdfs:domain :MatchingFpInfon .
+
+
+
+###  http://www.semanticweb.org/ravenlab/ontologies/2015/6/siutationthoery.owl#fpOn
+
+:fpOn rdf:type owl:ObjectProperty ;
+      
+      rdfs:domain :LeaveFpInfon ;
+      
+      rdfs:range owl:Thing .
+
+
+
+###  http://www.semanticweb.org/ravenlab/ontologies/2015/6/siutationthoery.owl#fpProducer
+
+:fpProducer rdf:type owl:ObjectProperty ;
+            
+            rdfs:domain :LeaveFpInfon .
+
+
+
+###  http://www.semanticweb.org/ravenlab/ontologies/2015/6/siutationthoery.owl#fpRecorded
+
+:fpRecorded rdf:type owl:ObjectProperty ;
+            
+            rdfs:range <http://esterline.ncat.edu/identity/biometric#FingerprintImage> ;
+            
+            rdfs:domain :Infon .
+
+
+
+###  http://www.semanticweb.org/ravenlab/ontologies/2015/6/siutationthoery.owl#fpSubject
+
+:fpSubject rdf:type owl:ObjectProperty ;
+           
+           rdfs:domain :TakeFpInfon .
+
+
+
+###  http://www.semanticweb.org/ravenlab/ontologies/2015/6/siutationthoery.owl#fpTakingOfficer
+
+:fpTakingOfficer rdf:type owl:ObjectProperty ;
+                 
+                 rdfs:domain :TakeFpInfon .
+
+
+
+###  http://www.semanticweb.org/ravenlab/ontologies/2015/6/siutationthoery.owl#hasArguments
+
+:hasArguments rdf:type owl:ObjectProperty ;
+              
+              rdfs:range :Argument .
+
+
+
+###  http://www.semanticweb.org/ravenlab/ontologies/2015/6/siutationthoery.owl#hasInfon
+
+:hasInfon rdf:type owl:ObjectProperty ;
+          
+          rdfs:range :Infon ;
+          
+          rdfs:domain :Situation ;
+          
+          rdfs:subPropertyOf owl:topObjectProperty .
+
+
+
+###  http://www.semanticweb.org/ravenlab/ontologies/2015/6/siutationthoery.owl#hasOn
+
+:hasOn rdf:type owl:ObjectProperty .
+
+
+
+###  http://www.semanticweb.org/ravenlab/ontologies/2015/6/siutationthoery.owl#hasPolarity
+
+:hasPolarity rdf:type owl:ObjectProperty ;
+             
+             rdfs:domain :Infon ;
+             
+             rdfs:range :Polarity .
+
+
+
+###  http://www.semanticweb.org/ravenlab/ontologies/2015/6/siutationthoery.owl#hasRelation
+
+:hasRelation rdf:type owl:ObjectProperty ;
+             
+             rdfs:range :Relation ;
+             
+             rdfs:subPropertyOf owl:topObjectProperty .
+
+
+
+###  http://www.semanticweb.org/ravenlab/ontologies/2015/6/siutationthoery.owl#infon
+
+:infon rdf:type owl:ObjectProperty ;
+       
+       rdfs:range :Infon ;
+       
+       rdfs:domain :Situation ;
+       
+       rdfs:subPropertyOf :hasInfon .
+
+
+
+###  http://www.semanticweb.org/ravenlab/ontologies/2015/6/siutationthoery.owl#isOn
+
+:isOn rdf:type owl:ObjectProperty ;
+      
+      rdfs:domain owl:Thing ;
+      
+      rdfs:range owl:Thing .
+
+
+
+###  http://www.semanticweb.org/ravenlab/ontologies/2015/6/siutationthoery.owl#mugshotRecorded
+
+:mugshotRecorded rdf:type owl:ObjectProperty ;
+                 
+                 rdfs:range <http://esterline.ncat.edu/identity/biometric#FacialImage> ;
+                 
+                 rdfs:domain :Infon .
+
+
+
+###  http://www.semanticweb.org/ravenlab/ontologies/2015/6/siutationthoery.owl#mugshotSubject
+
+:mugshotSubject rdf:type owl:ObjectProperty ;
+                
+                rdfs:domain :TakeMugShotInfon .
+
+
+
+###  http://www.semanticweb.org/ravenlab/ontologies/2015/6/siutationthoery.owl#mugshotTakingOfficer
+
+:mugshotTakingOfficer rdf:type owl:ObjectProperty ;
+                      
+                      rdfs:domain :TakeMugShotInfon .
+
+
+
+###  http://www.semanticweb.org/ravenlab/ontologies/2015/6/siutationthoery.owl#simMeasure
+
+:simMeasure rdf:type owl:ObjectProperty ;
+            
+            rdfs:domain :SimilarFaceInfon ,
+                        :SimilarFpInfon ;
+            
+            rdfs:range [ rdf:type owl:Restriction ;
+                         owl:onProperty :decimal ;
+                         owl:someValuesFrom xsd:decimal
+                       ] .
+
+
+
+###  http://www.semanticweb.org/ravenlab/ontologies/2015/6/siutationthoery.owl#simProc
+
+:simProc rdf:type owl:ObjectProperty ;
+         
+         rdfs:domain :SimilarFaceInfon ,
+                     :SimilarFpInfon .
+
+
+
+###  http://www.semanticweb.org/ravenlab/ontologies/2015/6/siutationthoery.owl#spacialLoc
+
+:spacialLoc rdf:type owl:ObjectProperty ;
+            
+            rdfs:domain :Situation ;
+            
+            rdfs:range :SpatialLocation ;
+            
+            rdfs:subPropertyOf owl:topObjectProperty .
+
+
+
+###  http://www.semanticweb.org/ravenlab/ontologies/2015/6/siutationthoery.owl#tempLoc
+
+:tempLoc rdf:type owl:ObjectProperty ;
+         
+         rdfs:domain :Situation ;
+         
+         rdfs:range :TemporalLocation ;
+         
+         rdfs:subPropertyOf owl:topObjectProperty .
+
+
+
+
+
+#################################################################
+#
+#    Data properties
+#
+#################################################################
+
+
+###  http://www.semanticweb.org/ravenlab/ontologies/2015/6/siutationthoery.owl#decimal
+
+:decimal rdf:type owl:DatatypeProperty ;
+         
+         rdfs:range xsd:decimal .
+
+
+
+
+
+#################################################################
+#
+#    Classes
+#
+#################################################################
+
+
+###  http://www.semanticweb.org/ravenlab/ontologies/2015/6/siutationthoery.owl#AnalystMatchingFaceInfon
+
+:AnalystMatchingFaceInfon rdf:type owl:Class ;
+                          
+                          rdfs:subClassOf :MatchingFaceInfon .
+
+
+
+###  http://www.semanticweb.org/ravenlab/ontologies/2015/6/siutationthoery.owl#AnalystMatchingFpInfon
+
+:AnalystMatchingFpInfon rdf:type owl:Class ;
+                        
+                        rdfs:subClassOf :MatchingFpInfon .
+
+
+
+###  http://www.semanticweb.org/ravenlab/ontologies/2015/6/siutationthoery.owl#Arguments
+
+:Arguments rdf:type rdfs:Container.
+
+
+
+###  http://www.semanticweb.org/ravenlab/ontologies/2015/6/siutationthoery.owl#FaceAppearsInfon
+
+:FaceAppearsInfon rdf:type owl:Class ;
+                  
+                  rdfs:subClassOf :Infon .
+
+
+
+###  http://www.semanticweb.org/ravenlab/ontologies/2015/6/siutationthoery.owl#Infon
+
+:Infon rdf:type owl:Class .
+
+
+
+###  http://www.semanticweb.org/ravenlab/ontologies/2015/6/siutationthoery.owl#LeaveFpInfon
+
+:LeaveFpInfon rdf:type owl:Class ;
+              
+              rdfs:subClassOf :Infon .
+
+
+
+###  http://www.semanticweb.org/ravenlab/ontologies/2015/6/siutationthoery.owl#MatchingFaceInfon
+
+:MatchingFaceInfon rdf:type owl:Class ;
+                   
+                   rdfs:subClassOf :Infon .
+
+
+
+###  http://www.semanticweb.org/ravenlab/ontologies/2015/6/siutationthoery.owl#MatchingFpInfon
+
+:MatchingFpInfon rdf:type owl:Class ;
+                 
+                 rdfs:subClassOf :Infon .
+
+
+
+###  http://www.semanticweb.org/ravenlab/ontologies/2015/6/siutationthoery.owl#OnInfon
+
+:OnInfon rdf:type owl:Class ;
+         
+         rdfs:subClassOf :Infon .
+
+
+
+###  http://www.semanticweb.org/ravenlab/ontologies/2015/6/siutationthoery.owl#Polarity
+
+:Polarity rdf:type owl:Class .
+
+
+
+###  http://www.semanticweb.org/ravenlab/ontologies/2015/6/siutationthoery.owl#Relation
+
+:Relation rdf:type owl:Class .
+
+
+
+###  http://www.semanticweb.org/ravenlab/ontologies/2015/6/siutationthoery.owl#SimilarFaceInfon
+
+:SimilarFaceInfon rdf:type owl:Class ;
+                  
+                  rdfs:subClassOf :Infon .
+
+
+
+###  http://www.semanticweb.org/ravenlab/ontologies/2015/6/siutationthoery.owl#SimilarFpInfon
+
+:SimilarFpInfon rdf:type owl:Class ;
+                
+                rdfs:subClassOf :Infon .
+
+
+
+###  http://www.semanticweb.org/ravenlab/ontologies/2015/6/siutationthoery.owl#Situation
+
+:Situation rdf:type owl:Class .
+
+
+
+###  http://www.semanticweb.org/ravenlab/ontologies/2015/6/siutationthoery.owl#SpatialLocation
+
+:SpatialLocation rdf:type owl:Class .
+
+
+
+###  http://www.semanticweb.org/ravenlab/ontologies/2015/6/siutationthoery.owl#TakeFpInfon
+
+:TakeFpInfon rdf:type owl:Class ;
+             
+             rdfs:subClassOf :MatchingFpInfon .
+
+
+
+###  http://www.semanticweb.org/ravenlab/ontologies/2015/6/siutationthoery.owl#TakeMugShotInfon
+
+:TakeMugShotInfon rdf:type owl:Class ;
+                  
+                  rdfs:subClassOf :MatchingFaceInfon .
+
+
+
+###  http://www.semanticweb.org/ravenlab/ontologies/2015/6/siutationthoery.owl#TemporalLocation
+
+:TemporalLocation rdf:type owl:Class .
+
+
+
+
+
+#################################################################
+#
+#    Individuals
+#
+#################################################################
+
+
+###  http://www.semanticweb.org/ravenlab/ontologies/2015/6/siutationthoery.owl#NegativePolarity
+
+:NegativePolarity rdf:type :Polarity ,
+                           owl:NamedIndividual .
+
+
+
+###  http://www.semanticweb.org/ravenlab/ontologies/2015/6/siutationthoery.owl#PositivePolarity
+
+:PositivePolarity rdf:type :Polarity ,
+                           owl:NamedIndividual .
+
+
+
+
+###  Generated by the OWL API (version 3.4.2) http://owlapi.sourceforge.net
+
