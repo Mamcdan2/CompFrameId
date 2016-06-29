@@ -2,9 +2,10 @@
    # recterms:hasRecord rec:578.
 
 # schema of basic information for person who committed crime.
-@prefix bioCulprit: <http://esterline.ncat.edu/bioCulprit#>
-  
-_:culprit a bioCulprit:Criminal
+@prefix bioCulprit: <http://esterline.ncat.edu/bioCulprit#>.
+@prefix xsd:
+
+_:culprit a bioCulprit:Criminal;
 	foaf:firstName          "Rob";
 	foaf:lastName           "Stewart";
 	foaf:mbox	            <mailto:stewartRob@gmail.com>;
@@ -17,7 +18,7 @@ _:culprit a bioCulprit:Criminal
 	foaf:gender             "Male";
 	bioCulprit:hair         "brown";
 	foaf:age                 "30";
-	bioCulprit:_:address     .
+	bioCulprit:		 _:address     .
 
 _:address a bioCulprit:Criminal
 	bioCulprit:streetAddress "285 Peach Court";
