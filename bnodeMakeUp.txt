@@ -33,5 +33,19 @@ _:address a bioCulprit:address;
 #same type as the suspect (system #)
    _:culprit owl:sameAs insys:201.
    
-
-
+# Somebody recording the image of fingerprint.
+	forensicfp:822 a biom: FingerPrintImage; #Already have in code.
+	# Work in progress.  Just wanted to show what I have so far.
+	forensicfp:822 a biom: Orientation;  
+	   biom:width     4
+	   biom:height    6 
+	   biom:bitdepth  8 
+	   biom:imageLighting  #(alternate light sources)
+	   
+	# Analyze the image.
+	   x biom:hasfpImage fpScene
+	   fpFile biom: faithfulCopy fpScene
+	   x biom:hasfpImage  fpScene
+	   y biom:hasfpImage  fpFile
+	   fpScene biom:matches fpFile
+	   x owl:sameAs y 
