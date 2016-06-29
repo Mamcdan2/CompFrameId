@@ -3,9 +3,11 @@
 
 # schema of basic information for person who committed crime.
 @prefix bioCulprit: <http://esterline.ncat.edu/bioCulprit#>.
-@prefix xsd:
+@prefix xsd: <http://www.w3.org/2001/XMLSchema>.
+@prefix foaf: <http://xmlns.com/foaf/0.1/>.
 
 _:culprit a bioCulprit:Criminal;
+	a foaf:Person;
 	foaf:firstName          "Rob";
 	foaf:lastName           "Stewart";
 	foaf:mbox	            <mailto:stewartRob@gmail.com>;
@@ -18,16 +20,18 @@ _:culprit a bioCulprit:Criminal;
 	foaf:gender             "Male";
 	bioCulprit:hair         "brown";
 	foaf:age                 "30";
-	bioCulprit:		 _:address     .
+	bioCulprit:address		 _:address     .
 
-_:address a bioCulprit:Criminal
+_:address a bioCulprit:address;
 	bioCulprit:streetAddress "285 Peach Court";
 	bioCulprit:city 		  "Greensboro";
 	bioCulprit:zipcode        "20774"^^xsd:integer;
 	bioCulprit:state		  "North Carolina";
 	bioCulprit:country        "United States" .
-	
-   _:culprit owl:sameAs insys:201
+
+#Need to think about whether the culprit is actually the
+#same type as the suspect (system #)
+   _:culprit owl:sameAs insys:201.
    
    
   
