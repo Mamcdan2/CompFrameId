@@ -10,7 +10,7 @@ _:culprit a bioCulprit:Criminal;
 	a foaf:Person;
 	foaf:firstName          "Rob";
 	foaf:lastName           "Stewart";
-	foaf:mbox	            <mailto:stewartRob@gmail.com>;
+	foaf:mbox	        <mailto:stewartRob@gmail.com>;
 	bioCulprit:hasTelephone "(336)-555-8900";
 	#socialSecurity
 	bioCulprit:height       "6'3";
@@ -33,10 +33,20 @@ _:address a bioCulprit:address;
 #same type as the suspect (system #)
    _:culprit owl:sameAs insys:201.
    
+
+# Somebody recording the image of fingerprint.
+forensicfp:822 a biom:FingerPrintImage; #Already have in code.
+# Work in progress.  Just wanted to show what I have so far.
+forensicfp:822 a biom:Orientation;  
+   biom:width     4
+   biom:height    6 
+   biom:bitdepth  8 
+   biom:imageLighting  #(alternate light sources)
    
-  
-   
-   
-   
-   
-   
+# Analyze the image.
+   x biom:hasfpImage fpScence
+   fpFile biom:faithfulCopy fpScence
+   x biom:hasfpImage  fpScence
+   y biom:hasfpImage  fpFile
+   fpScence biom:matches fpFile
+   x owl:sameAs y 
