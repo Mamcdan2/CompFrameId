@@ -1,0 +1,37 @@
+#insys:201 a foaf:Suspect;               # The suspect (s1, s3, s4)
+   # recterms:hasRecord rec:578.
+
+# schema of basic information for person who committed crime.
+@prefix bioCulprit: <http://esterline.ncat.edu/bioCulprit#>
+  
+_:culprit a bioCulprit:Criminal
+	foaf:firstName          "Rob";
+	foaf:lastName           "Stewart";
+	foaf:mbox	            <mailto:stewartRob@gmail.com>;
+	bioCulprit:hasTelephone "(336)-555-8900";
+	#socialSecurity
+	bioCulprit:height       "6'3";
+	bioCulprit:race			"Caucasian";
+	bioCulprit:dateBirth    "1980-12-22"^^xsd:date;     
+	bioCulprit:weight		"180"^^xsd:integer;
+	foaf:gender             "Male";
+	bioCulprit:hair         "brown";
+	foaf:age                 "30";
+	bioCulprit:_:address     .
+
+_:address a bioCulprit:Criminal
+	bioCulprit:streetAddress "285 Peach Court";
+	bioCulprit:city 		  "Greensboro";
+	bioCulprit:zipcode        "20774"^^xsd:integer;
+	bioCulprit:state		  "North Carolina";
+	bioCulprit:country        "United States" .
+	
+   _:culprit owl:sameAs insys:201
+   
+   
+  
+   
+   
+   
+   
+   
