@@ -2,6 +2,7 @@
 @prefix  rdf:         <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
 @prefix  rdfs:        <http://www.w3.org/2000/01/rdf-schema#>.
 @prefix  foaf:        <http://xmlns.com/foaf/0.1/>.
+@prefix  xsd:        <http://www.w3.org/2001/XMLSchema>.
 
 # For lat(itude), long(itude) and other info about spatially-located things, 
 # using World Geodetic System WGS84 as a reference datum 
@@ -16,7 +17,7 @@
 #                    Situation id numbers
 @prefix  sit:         <http://esterline.ncat.edu/sit#>. 
 
-#       Schema for records
+#       Schema for records: terms introduced in rdfs
 @prefix  recterms: <http://esterline.ncat.edu/personalrecords#>. 
 #                    Id numbers of records of suspects 
 @prefix  rec:         <http://esterline.ncat.edu/personalrecords#>. 
@@ -35,8 +36,10 @@
 #                    Id numbers of police officiers
 @prefix  officer:     <http://esterline.ncat.edu/officeronduty#>.
 
-#       SKOS biometric schema 
+#       SKOS (simple knowledge organization system) biometric schema 
 @prefix  biom:        <http://esterline.ncat.edu/biometric#>.
+#	 Auxiliary biometric schema
+@prefix  biomaux:     <http://esterline.ncat.edu/biometric_auxiliary#>.
 #                    Mugshot id numbers--NOT FOR FINGERPRINT
 #@prefix  mshot:       <http://esterline.ncat.edu/mugshot#>. 
 #                    Id numbers of forensic photos---NOT FOR FINGERPRINT
@@ -53,7 +56,8 @@
 
 #       Schema for human anatomy
 @prefix  anatomy:      <http://esterline.ncat.edu/anatomy#>.
-#                     Id numbers of friction ridge patterns
+#                     Id numbers of friction ridge pattern
+#Friction ridge: the pattern on a person’s finger that would leave a fingerprint
 @prefix  frictionRs:      <http://esterline.ncat.edu/public#>.
 
 #       Schema for procedures [UPDATE] 
@@ -75,11 +79,21 @@
 officer:117 a lawterms:ForensicAnalyst; # The analyst in the id-situation (s1)
     foaf:name "Rita Flores".
 
-officer:296 a lawterms:AdminOfficer;    # The taking the fingerprint on file (s3)
+officer:296 a lawterms:AdminOfficer;    # This officer takes all the fingerprints (s3)
     foaf:name "Shelby Brown".
 
 insys:201 a foaf:Suspect;               # The suspect (s1, s3, s4)
     recterms:hasRecord rec:578.
+
+###### ADDITIONAL SUSPECTS ARE GOING HERE #########################
+insys:202 a foaf:Suspect;
+    recterms:hasRecord rec:579.
+
+insys:203 a foaf:Suspect;
+    recterms:hasRecord rec:580.
+
+insys:204 a foaf:Suspect;
+    recterms:hasRecord rec:601.
 
 fobject:409 a objectterms:Doorknob;     # The doorknob (s1, s4)
     rdfs:label "Doorknob with Forensic Fingerprint".
@@ -88,73 +102,187 @@ fobject:409 a objectterms:Doorknob;     # The doorknob (s1, s4)
 
 # The fingerprints
 fpfile:496 a biom:FingerPrintImage;       # The fingerprint on file (s1, s3)
-    rdfs:label   "Rob Stewart File, SS:000-00-0000 ";
-	biomaux:imageLabelabel "John Doe"^^xsd:string;
-    foaf:depicts frictionRs:324;  # Not "represents"
+    rdfs:label   "John Doe File, SS:000-00-0000 ";					##To compare to a fingerprint db, need multiple here
+	biomaux:imageLabel "John Doe"^^xsd:string; #biomaux: auxiliary biometric ontology
+    foaf:depicts frictionRs:324;  # Not "represents": physical, not conventional similarity
     foaf:maker   officer:296.
+
+###### ADDITIONAL SUSPECTS ARE GOING HERE #########################
+
+fpfile:497 a biom:FingerPrintImage;
+    rdfs:label "Robert Smith File";
+	biomaux:imageLabel "Robert Smith"^^xsd:string;
+    foaf:depicts frictionRs:325;
+    foaf:maker officer:296.
+
+fpfile:498 a biom:FingerPrintImage;
+    rdfs:label "Jane Doe File";
+	biomaux:imageLabel "Jane Doe"^^xsd:string;
+    foaf:depicts frictionRs:326;
+    foaf:maker officer:296.
+
+fpfile:499 a biom:FingerPrintImage;
+    rdfs:label "Jean Valjean File";
+	biomaux:imageLabel "Jean Valjean"^^xsd:string;
+    foaf:depicts frictionRs:327;
+    foaf:maker officer:296.
 
 frictionRs:324 a anatomy:FrictionRidges;
     biom:frictionRsRightIndexOf insys:201.
+frictionRs:325 a anatomy:FrictionRidges;
+    biom:frictionRsRightIndexOf insys:202.
+frictionRs:326 a anatomy:FrictionRidges;
+    biom:frictionRsRightIndexOf insys:203.
+frictionRs:327 a anatomy:FrictionRidges;
+    biom:frictionRsRightIndexOf insys:204.
 
-forensicfp:822 a biom:FingerPrintImage;   # fingrprint at the scene (s1, s4)
+forensicfp:822 a biom:FingerPrintImage;   # fingerprint at the scene (s1, s4)
     rdfs:label "Unknown FingerPrint Owner";
     foaf:depicts frictionRs:324 .
 
 ###################################################################
 
-# The record 
+# The records
 rec:578 a recterms:PoliceRecord;
-    foaf:name            "Rob Stewart, SS:000-00-0000";
+    foaf:name            "John Doe File, SS:000-00-0000";
     biom:hasFpImage      fpfile:496.
 #   biom:hasFacialImage  mshot:314.
 
+rec:579 a recterms:PoliceRecord;
+    foaf:name            "Robert Smith File";
+    biom:hasFpImage      fpfile:497.
+
+rec:580 a recterms:PoliceRecord;
+    foaf:name            "Jane Doe File";
+    biom:hasFpImage      fpfile:498.
+
+rec:601 a recterms:PoliceRecord;
+    foaf:name            "Jean Valjean File";
+    biom:hasFpImage      fpfile:499.
+
 ################################################################
 
-# The id-siutation with the fingerprint on the doorknob
+# The id-situation with the fingerprint on the doorknob
+# Situation also includes attempts to match incorrect fingerprints
 sit:s1 a sitterms:Situation;
-    sitterms:supportsInfon  _:i1;
+    sitterms:supportsInfon  _:i11a;
+    sitterms:supportsInfon  _:i11b;
+    sitterms:supportsInfon  _:i11c;
+    sitterms:supportsInfon  _:i11d;
     sitterms:supportsInfon  _:i14;
     sitterms:supportsInfon  _:i1a;
-    sitterms:spacialLoc sit:matchLoc;
+    ####New infons for fingerprint matches are going here. We also need some sort of comparison etc.
+    sitterms:supportsInfon  _:i1b;
+    sitterms:supportsInfon  _:i1c;
+    sitterms:supportsInfon  _:i1d;
+    sitterms:spacialLoc sit:matchLoc;		#It’d be nice to move time and location out to the infons
     sitterms:tempLoc    sit:matchTime.
 
-_:i1 a sitterms:AnalystMatchingFpInfon;
+_:i11a a sitterms:AnalystMatchingFpInfon;	#The same analyst matches all of the fingerprints
     sitterms:fpAnalyst officer:117;
     sitterms:fpObserved forensicfp:822;
     sitterms:fpRecorded fpfile:496;
-    sitterms:hasPolairty  sitterms:PositivePolarity.
+    sitterms:hasPolarity  sitterms:PositivePolarity.
+
+_:i11b a sitterms:AnalystMatchingFpInfon;
+    sitterms:fpAnalyst officer:117;
+    sitterms:fpObserved forensicfp:822;
+    sitterms:fpRecorded fpfile:497;
+    sitterms:hasPolarity  sitterms:PositivePolarity.
+
+_:i11b a sitterms:AnalystMatchingFpInfon;
+    sitterms:fpAnalyst officer:117;
+    sitterms:fpObserved forensicfp:822;
+    sitterms:fpRecorded fpfile:498;
+    sitterms:hasPolarity  sitterms:PositivePolarity.
+
+_:i11b a sitterms:AnalystMatchingFpInfon;
+    sitterms:fpAnalyst officer:117;
+    sitterms:fpObserved forensicfp:822;
+    sitterms:fpRecorded fpfile:499;
+    sitterms:hasPolarity  sitterms:PositivePolarity.
 
 _:i1a a sitterms::SimilarFpInfon;
     sitterms:fpObserved forensicfp:822;
     sitterms:fpRecorded fpfile:496;
     sitterms:simMeasure "0.94";
     sitterms:simProc similar:Proc1;
-    sitterms:hasPolairty  sitterms:PositivePolarity.
+    sitterms:hasPolarity  sitterms:PositivePolarity.
+
+_:i1b a sitterms::SimilarFpInfon;
+    sitterms:fpObserved forensicfp:822;
+    sitterms:fpRecorded fpfile:497;
+    sitterms:simMeasure "0.03";
+    sitterms:simProc similar:Proc1;
+    sitterms:hasPolarity  sitterms:PositivePolarity.
+
+_:i1c a sitterms::SimilarFpInfon;
+    sitterms:fpObserved forensicfp:822;
+    sitterms:fpRecorded fpfile:498;
+    sitterms:simMeasure "0.72";
+    sitterms:simProc similar:Proc1;
+    sitterms:hasPolarity  sitterms:PositivePolarity.
+
+_:i1d a sitterms::SimilarFpInfon;
+    sitterms:fpObserved forensicfp:822;
+    sitterms:fpRecorded fpfile:499;
+    sitterms:simMeasure "0.38";
+    sitterms:simProc similar:Proc1;
+    sitterms:hasPolarity  sitterms:PositivePolarity.
+
 
 _:i14 a sitterms:OnInfon;
     sitterms:hasOn forensicfp:822;
     sitterms:isOn fobject:409;
-    sitterms:hasPolairty  sitterms:PositivePolarity.
+    sitterms:hasPolarity  sitterms:PositivePolarity.
 
 # -----------------------------------------------
 
 # The situation where an officer takes a person's fingerprint
 sit:s3 a sitterms:Situation;
-    sitterms:supportsInfon   _:i3;
+    sitterms:supportsInfon   _:i3a;			####There should probably actually be separate situations for the different suspects’ fingerprintings
+    sitterms:supportsInfon   _:i3b;
+    sitterms:supportsInfon   _:i3c;
+    sitterms:supportsInfon   _:i3d;
     sitterms:spacialLoc sit:fpFileLoc;
     sitterms:tempLoc    sit:fpFileTime. 
 
-_:i3 a sitterms:TakeFpInfon;
+_:i3a a sitterms:TakeFpInfon;
     sitterms:fpSubject insys:201;
     sitterms::fpRecorded fpfile:496;
     sitterms:fpTakingOfficer officer:296;
-    sitterms:hasPolairty  sitterms:PositivePolarity.
+    sitterms:hasPolarity  sitterms:PositivePolarity.
+
+_:i3b a sitterms:TakeFpInfon;		
+    sitterms:fpSubject insys:202;
+    sitterms::fpRecorded fpfile:497;
+    sitterms:fpTakingOfficer officer:296;
+    sitterms:hasPolarity  sitterms:PositivePolarity.
+
+_:i3c a sitterms:TakeFpInfon;		
+    sitterms:fpSubject insys:203;
+    sitterms::fpRecorded fpfile:498;
+    sitterms:fpTakingOfficer officer:296;
+    sitterms:hasPolarity  sitterms:PositivePolarity.
+
+_:i3d a sitterms:TakeFpInfon;		
+    sitterms:fpSubject insys:204;
+    sitterms::fpRecorded fpfile:499;
+    sitterms:fpTakingOfficer officer:296;
+    sitterms:hasPolarity  sitterms:PositivePolarity.
 
 # --------------------------------------------
 
 # The situation where someone leaves a fingerprint
 # NOTE: This does NOT include someone recording the fingerprint.
 sit:s4 a sitterms:Situation;
-    sitterms:supportsInfon   _:i14;
+    sitterms:supportsInfon   _:i14; #the fingerprint is on the doorknob
     sitterms:spacialLoc sit:socialLoc;
     sitterms:tempLoc    sit:socialTime.
+
+# New code.  More on biometric of fingerprint image taken on scene. 
+forensicfp:822 a biom:FingerPrintImage;
+	biom:width     "4";
+	biom:height    "6";
+	biom:bitdepth  "8";
+	biom:imageLighting "Medium".
