@@ -282,7 +282,7 @@ sit:s4 a sitterms:Situation;
 
 # New code.  More on biometric of fingerprint image taken on scene. 
 forensicfp:822 a biom:FingerPrintImage;
-	biom:width     "4";
-	biom:height    "6";
-	biom:bitdepth  "8";
+	biom:width     "4"^^xsd:integer;  # Default for now.
+	biom:height    "6"^^xsd:integer;  # Default for now.
+	biom:bitdepth  "8"^^xsd:integer;  # Default for now.
 	biom:imageLighting "Medium".
