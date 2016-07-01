@@ -287,8 +287,9 @@ forensicfp:822 a biom:FingerPrintImage;
 	biom:bitdepth  "8"^^xsd:bit;     # Default for now.
 	biom:imageLighting "Medium". 
 
- _:x biom:hasfpImage forensicfp:822.  # Would put bnode info but would seem
- forensicfp:822 biom:faithfulCopy  fpfile:496.	  # red. also website.
+# Fingerprint matches.
+ _:x biom:hasfpImage forensicfp:822. 
+ forensicfp:822 biom:faithfulCopy  fpfile:496.	  
  _:x biom:hasfpImage fpfile:496.
  _:x biom:hasfpImage  _:fpa.
      
