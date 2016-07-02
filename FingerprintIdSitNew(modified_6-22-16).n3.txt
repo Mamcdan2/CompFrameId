@@ -306,7 +306,7 @@ _:culprit a bioCulprit:Criminal;
 	foaf:lastName           "Stewart";
 	foaf:mbox	         <mailto:stewartRob@gmail.com>;
 	bioCulprit:hasTelephone "(336)-555-8900";
-	#socialSecurity (already in another part of rdf file.)
+	#socialSecurity (Not one for actual criminal.  Will put if needed.)
 	bioCulprit:height       "6'3";
 	bioCulprit:race	        "Caucasian"^^xsd:string;
 	bioCulprit:dateBirth    "1980-12-22"^^xsd:date;     
@@ -322,4 +322,3 @@ _:address a bioCulprit:Criminal;
 	bioCulprit:zipcode       "20774"^^xsd:integer;
 	bioCulprit:state         "North Carolina"^^xsd:string;
 	bioCulprit:country       "United States"^^xsd:string.
-
