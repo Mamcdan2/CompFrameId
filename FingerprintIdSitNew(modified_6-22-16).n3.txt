@@ -300,21 +300,21 @@ _:fpb biom:matches _:fpa.
 _:y owl:sameAs _:x.
 
 
-# Criminal's personal information.
-_:culprit a bioCulprit:CiminalInfo;
+# Criminal's personal information.  Some types I could not find in xsd.
+_:culprit a bioCulprit:CriminalInfo;
 	foaf:firstName          "Rob";
 	foaf:lastName           "Stewart";
-	foaf:mbox	         <mailto:stewartRob@gmail.com>;
+	foaf:mbox	            <mailto:stewartRob@gmail.com>;
 	bioCulprit:hasTelephone "(336)-555-8900";
 	#socialSecurity (Not one for actual criminal.  Will put if needed.)
 	bioCulprit:height       "6'3";
-	bioCulprit:race	        "Caucasian"^^xsd:string;
+	bioCulprit:race	      "Caucasian"^^xsd:string;
 	bioCulprit:dateBirth    "1980-12-22"^^xsd:date;     
-	bioCulprit:weight	    "180";
-	foaf:gender             "Male"^^xsd:string;
+	bioCulprit:weight	      "180";
+	foaf:gender             "Male";
 	bioCulprit:hair         "brown"^^xsd:string;
-	foaf:age                 "30";
-	bioCulprit: _:address     .
+	foaf:age                "30";
+	bioCulprit: _:address.
 
 _:address a bioCulprit:CriminalInfo;
 	bioCulprit:streetAddress "285 Peach Court";
@@ -322,5 +322,6 @@ _:address a bioCulprit:CriminalInfo;
 	bioCulprit:zipcode       "20774"^^xsd:integer;
 	bioCulprit:state         "North Carolina"^^xsd:string;
 	bioCulprit:country       "United States"^^xsd:string.
+
 
    _:culprit owl:sameAs insys:201.
