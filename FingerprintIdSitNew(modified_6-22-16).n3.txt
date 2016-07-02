@@ -304,7 +304,7 @@ _:y owl:sameAs _:x.
 _:culprit a bioCulprit:Criminal;
 	foaf:firstName          "Rob";
 	foaf:lastName           "Stewart";
-	foaf:mbox	            <mailto:stewartRob@gmail.com>;
+	foaf:mbox	         <mailto:stewartRob@gmail.com>;
 	bioCulprit:hasTelephone "(336)-555-8900";
 	#socialSecurity (already in another part of rdf file.)
 	bioCulprit:height       "6'3";
