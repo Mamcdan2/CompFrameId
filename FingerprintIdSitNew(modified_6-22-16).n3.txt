@@ -309,7 +309,7 @@ _:culprit a bioCulprit:CriminalInfo;
 	#socialSecurity (Not one for actual criminal.  Will put if needed.)
 	bioCulprit:height       "6'3";
 	bioCulprit:race	      "Caucasian"^^xsd:string;
-	bioCulprit:dateBirth    "1980-12-22"^^xsd:date;     
+	bioCulprit:dateBirth    "1985-12-22"^^xsd:date;     
 	bioCulprit:weight	      "180";
 	foaf:gender             "Male";
 	bioCulprit:hair         "brown"^^xsd:string;
