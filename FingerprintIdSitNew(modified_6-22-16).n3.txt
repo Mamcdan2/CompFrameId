@@ -301,7 +301,7 @@ _:y owl:sameAs _:x.
 
 
 # Criminal's personal information.
-_:culprit a bioCulprit:Criminal;
+_:culprit a bioCulprit:CiminalInfo;
 	foaf:firstName          "Rob";
 	foaf:lastName           "Stewart";
 	foaf:mbox	         <mailto:stewartRob@gmail.com>;
@@ -316,9 +316,11 @@ _:culprit a bioCulprit:Criminal;
 	foaf:age                 "30";
 	bioCulprit: _:address     .
 
-_:address a bioCulprit:Criminal;
+_:address a bioCulprit:CriminalInfo;
 	bioCulprit:streetAddress "285 Peach Court";
 	bioCulprit:city          "Greensboro"^^xsd:string;
 	bioCulprit:zipcode       "20774"^^xsd:integer;
 	bioCulprit:state         "North Carolina"^^xsd:string;
 	bioCulprit:country       "United States"^^xsd:string.
+
+   _:culprit owl:sameAs insys:201.
