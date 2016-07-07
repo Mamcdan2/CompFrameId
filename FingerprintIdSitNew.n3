@@ -65,6 +65,8 @@
 #                    Id numbers for procedures that measure similarity
 @prefix  similar:     <http://esterline.ncat.edu/similarity#>.
 
+# 		Schema for the culprit [NEW] 
+@prefix bioCulprit: <http://esterline.ncat.edu/bioCulprit#>.
 ###################################################################
 
 # The situations 
@@ -281,8 +283,55 @@ sit:s4 a sitterms:Situation;
     sitterms:spacialLoc sit:socialLoc;
     sitterms:tempLoc    sit:socialTime.
 
-_:i4 a sitterms:LeaveFpInfon;
-    sitterms:fpProducer insys:201;
-    sitterms:fpLeft forensicfp:822;
-    sitterms:fpOn fobject:409;
-    sitterms:hasPolarity  sitterms:PositivePolarity.
+#This infon has been taken out
+#_:i4 a sitterms:LeaveFpInfon;
+#    sitterms:fpProducer insys:201;
+#    sitterms:fpLeft forensicfp:822;
+#    sitterms:fpOn fobject:409;
+#    sitterms:hasPolarity  sitterms:PositivePolarity.
+
+# --------------------------------------------
+
+# New code.  More on biometric of fingerprint image taken on scene. 
+forensicfp:822 a biom:FingerPrintImage;
+	biom:width     "4"^^xsd:integer;  # Default for now.
+	biom:height    "6"^^xsd:integer;  # Default for now.
+	biom:bitdepth  "8"^^xsd:bit;     # Default for now.
+
+# Fingerprint matches.
+ _:x biom:hasfpImage forensicfp:822. 
+ forensicfp:822 biom:faithfulCopy  fpfile:496.	  
+ _:x biom:hasfpImage fpfile:496.
+ _:x biom:hasfpImage  _:fpa.
+     
+_:y  biom:hasfpImage _:fpb.
+_:fpb biom:matches _:fpa.
+_:y owl:sameAs _:x.
+
+# --------------------------------------------
+
+# Criminal's personal information.  Some types I could not find in xsd.
+_:culprit a bioCulprit:CriminalInfo;
+	foaf:firstName          "Rob";
+	foaf:lastName           "Stewart";
+	foaf:mbox	            <mailto:stewartRob@gmail.com>;
+	bioCulprit:hasTelephone "(336)-555-8900";
+	#socialSecurity (Not one for actual criminal.  Will put if needed.)
+	bioCulprit:height       "6'3";
+	bioCulprit:race	      "Caucasian"^^xsd:string;
+	bioCulprit:dateBirth    "1985-12-22"^^xsd:date;     
+	bioCulprit:weight	      "180";
+	foaf:gender             "Male";
+	bioCulprit:hair         "brown"^^xsd:string;
+	foaf:age                "30";
+	bioCulprit: _:address.
+
+_:address a bioCulprit:CriminalInfo;
+	bioCulprit:streetAddress "285 Peach Court";
+	bioCulprit:city          "Greensboro"^^xsd:string;
+	bioCulprit:zipcode       "20774"^^xsd:integer;
+	bioCulprit:state         "North Carolina"^^xsd:string;
+	bioCulprit:country       "United States"^^xsd:string.
+
+
+   _:culprit owl:sameAs insys:201.

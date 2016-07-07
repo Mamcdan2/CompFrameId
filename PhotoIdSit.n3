@@ -99,6 +99,20 @@ officer:622 a lawterms:AdminOfficer;    # The officer taking the mugshot (s6)
 insys:201 a foaf:Suspect;               # The suspect (in s2, s5, s6)
     recterms:hasRecord rec:578.      # SAME as in s1, s3, s4
 
+####ADDITIONAL SUSPECTS FROM FP SITUATIONS HERE
+insys:202 a foaf:Suspect;
+    recterms:hasRecord rec:579.
+
+insys:203 a foaf:Suspect;
+    recterms:hasRecord rec:580.
+
+insys:204 a foaf:Suspect;
+    recterms:hasRecord rec:601.
+
+insys:220 a foaf:Suspect;
+    recterms:hasRecord rec:581.
+
+
 insys:563 a foaf:Person.                 # The guy in the photographed group with insys:201
 
 fobject:409 a objectterms:Doorknob;     # The doorknob (s2 and s5a)
@@ -128,19 +142,52 @@ fshot:8121 a biom:FacialImage;
     biomaux:picIncludedIn fshot:812; # (STILL TO DEFINE biom:picIncluded)
     rdfs:label    "The part of the group photo depicting the culprit".
 
+#Mugshots for most suspects: currently all have same photographer
 mshot:314 a biom:FacialImage;       # The mugshot
-    rdfs:label "Rob Stewart Facial Mug Shot";
+    rdfs:label "John Doe Facial Mug Shot";
 	biomaux:imageLabel "John Doe"^^xsd:string;
     foaf:depicts insys:201;
     foaf:maker officer:622. 
 
+mshot:315 a biom:FacialImage;       # The mugshot
+    rdfs:label "Robert Smith Facial Mug Shot";
+	biomaux:imageLabel "Robert Smith"^^xsd:string;
+    foaf:depicts insys:202;
+    foaf:maker officer:622. 
+
+mshot:316 a biom:FacialImage;       # The mugshot
+    rdfs:label "Jane Doe Facial Mug Shot";
+	biomaux:imageLabel "Jane Doe"^^xsd:string;
+    foaf:depicts insys:203;
+    foaf:maker officer:622. 
+
+mshot:317 a biom:FacialImage;       # The mugshot
+    rdfs:label "Rebecca Smith Facial Mug Shot";
+	biomaux:imageLabel "Rebecca Smith"^^xsd:string;
+    foaf:depicts insys:220;
+    foaf:maker officer:622. 
+
 ###############################################################
 
-# The record 
+# The records
 rec:578 a recterms:PoliceRecord;
-    foaf:name            "Rob Stewart, SS:000-00-0000";
+    foaf:name            "John Doe File, SS:000-00-0000";
 #   biom:hasFpImage      fpfile:496.
     biom:hasFacialImage  mshot:314.
+
+rec:579 a recterms:PoliceRecord;
+    foaf:name            "Robert Smith File";
+#   biom:hasFpImage      fpfile:497.
+    biom:hasFacialImage  mshot:315.
+
+rec:580 a recterms:PoliceRecord;
+    foaf:name            "Jane Doe File";
+#   biom:hasFpImage      fpfile:498.
+    biom:hasFacialImage  mshot:316.
+
+rec:581 a recterms:PoliceRecord;
+    foaf:name            "Rebecca Smith File";
+    biom:hasFacialImage  mshot:317.
 
 #############################################################
 
@@ -156,28 +203,72 @@ sit:socialTime time:intervalDuring sit:socialTimeSup.
 
 ###################################################################
 
-# The id-siutation with the face in the group shot matching with the mug shot
+# The id-situation with the face in the group shot matching with the mug shot
 
 sit:s2 a sitterms:Situation;
-    sitterms:hasInfon   _:i2;
+    sitterms:hasInfon   _:i20a;    sitterms:hasInfon   _:i20b;    sitterms:hasInfon   _:i20c;    sitterms:hasInfon   _:i20d;
     sitterms:hasInfon   _:i2a;
     sitterms:hasInfon   _:i2b;
+    sitterms:hasInfon   _:i2c;
+    sitterms:hasInfon   _:i2d;
     sitterms:spacialLoc sit:matchLoc;
     sitterms:tempLoc    sit:matchTime.
 
-_:i2 a sitterms:AnalystMatchingPicInfon; 
+_:i20a a sitterms:AnalystMatchingPicInfon; 
     sitterms:picAnalyst officer:118; # The officer-analyst
     sitterms:picObserved fshot:8121; # The part of the forensic group photo 
                                      #    depicting our guy
     sitterms:picRecorded mshot:314;  # The mug shot
-    sitterms:hasPolairty  sitterms:PositivePolarity. 
+    sitterms:hasPolarity  sitterms:PositivePolarity. 
+
+_:i20b a sitterms:AnalystMatchingPicInfon; 
+    sitterms:picAnalyst officer:118; # The officer-analyst
+    sitterms:picObserved fshot:8121; # The part of the forensic group photo 
+                                     #    depicting our guy
+    sitterms:picRecorded mshot:315;  # The mug shot
+    sitterms:hasPolarity  sitterms:PositivePolarity. 
+
+_:i20c a sitterms:AnalystMatchingPicInfon; 
+    sitterms:picAnalyst officer:118; # The officer-analyst
+    sitterms:picObserved fshot:8121; # The part of the forensic group photo 
+                                     #    depicting our guy
+    sitterms:picRecorded mshot:316;  # The mug shot
+    sitterms:hasPolarity  sitterms:PositivePolarity. 
+
+_:i20d a sitterms:AnalystMatchingPicInfon; 
+    sitterms:picAnalyst officer:118; # The officer-analyst
+    sitterms:picObserved fshot:8121; # The part of the forensic group photo 
+                                     #    depicting our guy
+    sitterms:picRecorded mshot:317;  # The mug shot
+    sitterms:hasPolarity  sitterms:PositivePolarity. 
     
 _:i2a a sitterms:SimilarPicInfon;
     sitterms:picObserved fshot:8121;  # Relevant part of the forensic group photo
     sitterms:picRecorded mshot:314;   # The mug shot
     sitterms:simPicMeasure "0.97";    # The similarity measure between the 2
     sitterms:simPicProc similar:sim2; # The procedure computing the similarity
-    sitterms:hasPolairty  sitterms:PositivePolarity . 
+    sitterms:hasPolarity  sitterms:PositivePolarity . 
+
+_:i2b a sitterms:SimilarPicInfon;
+    sitterms:picObserved fshot:8121;  # Relevant part of the forensic group photo
+    sitterms:picRecorded mshot:315;   # The mug shot
+    sitterms:simPicMeasure "0.07";    # The similarity measure between the 2
+    sitterms:simPicProc similar:sim2; # The procedure computing the similarity
+    sitterms:hasPolarity  sitterms:PositivePolarity . 
+
+_:i2c a sitterms:SimilarPicInfon;
+    sitterms:picObserved fshot:8121;  # Relevant part of the forensic group photo
+    sitterms:picRecorded mshot:316;   # The mug shot
+    sitterms:simPicMeasure "0.53";    # The similarity measure between the 2
+    sitterms:simPicProc similar:sim2; # The procedure computing the similarity
+    sitterms:hasPolarity  sitterms:PositivePolarity . 
+
+_:i2d a sitterms:SimilarPicInfon;
+    sitterms:picObserved fshot:8121;  # Relevant part of the forensic group photo
+    sitterms:picRecorded mshot:317;   # The mug shot
+    sitterms:simPicMeasure "0.09";    # The similarity measure between the 2
+    sitterms:simPicProc similar:sim2; # The procedure computing the similarity
+    sitterms:hasPolarity  sitterms:PositivePolarity . 
 
 # -----------------------------------------------       
 
@@ -193,7 +284,7 @@ _:15 a sitterms:ForensicPicInfon;
     sitterms:forCamera  aobject:camera-15; # The camera used
     sitterms:picturedSit  sit:s5a;         # The situation photographed
     sitterms:forPicProduced  fshot:812;    # The resulting photo
-    sitterms:hasPolairty  sitterms:PositivePolarity. 
+    sitterms:hasPolarity  sitterms:PositivePolarity. 
 
 # -----------------------------------------------
 
@@ -224,13 +315,33 @@ _:i5b a sitterms:TouchInfon;
             
 # The situation where a mugshot was created and filed
 sit:s6 a sitterms:Situation;                                                        
-    sitterms:hasInfon   _:i6;
+    sitterms:hasInfon   _:i6a, _:i6b, _:i6c, _:i6d;
     sitterms:spacialLoc sit:facePicLoc;
     sitterms:tempLoc    sit:facePicTime.
 
-_:i6 a sitterms:TakeMugshotInfon;
+_:i6a a sitterms:TakeMugshotInfon;
     sitterms:mugSubject insys:201;
     sitterms:mugRecorded mshot:314;
+    sitterms:mugTakingOfficer officer:622;
+    sitterms:mugCamera aobject:camera-05;
+    sitterms:hasPolarity sitterms:PositivePolarity .
+_:i6b a sitterms:TakeMugshotInfon;
+    sitterms:mugSubject insys:201;
+    sitterms:mugRecorded mshot:315;
+    sitterms:mugTakingOfficer officer:622;
+    sitterms:mugCamera aobject:camera-05;
+    sitterms:hasPolarity sitterms:PositivePolarity .
+
+_:i6c a sitterms:TakeMugshotInfon;
+    sitterms:mugSubject insys:201;
+    sitterms:mugRecorded mshot:316;
+    sitterms:mugTakingOfficer officer:622;
+    sitterms:mugCamera aobject:camera-05;
+    sitterms:hasPolarity sitterms:PositivePolarity .
+
+_:i6d a sitterms:TakeMugshotInfon;
+    sitterms:mugSubject insys:201;
+    sitterms:mugRecorded mshot:317;
     sitterms:mugTakingOfficer officer:622;
     sitterms:mugCamera aobject:camera-05;
     sitterms:hasPolarity sitterms:PositivePolarity .
