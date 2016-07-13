@@ -3,6 +3,7 @@
 @prefix  rdfs:        <http://www.w3.org/2000/01/rdf-schema#>.
 @prefix  foaf:        <http://xmlns.com/foaf/0.1/>.
 @prefix  xsd:        <http://www.w3.org/2001/XMLSchema>.
+@prefix owl:		<http://www.w3.org/TR/owl-ref/>.
 
 # For lat(itude), long(itude) and other info about spatially-located things, 
 # using World Geodetic System WGS84 as a reference datum 
@@ -240,14 +241,27 @@ _:i14 a sitterms:OnInfon;
 
 # -----------------------------------------------
 
-# The situation where an officer takes a person's fingerprint
-sit:s3 a sitterms:Situation;
-    sitterms:hasInfon   _:i3a;			####There should probably actually be separate situations for the different suspects’ fingerprintings
-    sitterms:hasInfon   _:i3b;
-    sitterms:hasInfon   _:i3c;
-    sitterms:hasInfon   _:i3d;
+# The situations where an officer takes a person's fingerprint
+sit:s3a a sitterms:Situation;
+    sitterms:hasInfon   _:i3a.
     sitterms:spacialLoc sit:fpFileLoc;
     sitterms:tempLoc    sit:fpFileTime. 
+
+sit:s3b a sitterms:Situation;
+    sitterms:hasInfon   _:i3b;
+    sitterms:spacialLoc sit:fpFileLoc;
+    sitterms:tempLoc    sit:fpFileTime. #times for fingerprintings are probably all different 
+
+sit:s3c a sitterms:Situation;
+    sitterms:hasInfon   _:i3c;
+    sitterms:spacialLoc sit:fpFileLoc;
+    sitterms:tempLoc    sit:fpFileTime. #times for fingerprintings are probably all different 
+
+sit:s3d a sitterms:Situation;
+    sitterms:hasInfon   _:i3d;
+    sitterms:spacialLoc sit:fpFileLoc;
+    sitterms:tempLoc    sit:fpFileTime. #times for fingerprintings are probably all different 
+
 
 _:i3a a sitterms:TakeFpInfon;
     sitterms:fpSubject insys:201;
@@ -296,13 +310,13 @@ sit:s4 a sitterms:Situation;
 forensicfp:822 a biom:FingerPrintImage;
 	biom:width     "4"^^xsd:integer;  # Default for now.
 	biom:height    "6"^^xsd:integer;  # Default for now.
-	biom:bitdepth  "8"^^xsd:bit;     # Default for now.
+	biom:bitdepth  "8"^^xsd:bit.     # Default for now.
 
 # Fingerprint matches.
- _:x biom:hasfpImage forensicfp:822. 
- forensicfp:822 biom:faithfulCopy  fpfile:496.	  
- _:x biom:hasfpImage fpfile:496.
- _:x biom:hasfpImage  _:fpa.
+_:x biom:hasfpImage forensicfp:822. 
+forensicfp:822 biom:faithfulCopy  fpfile:496.	  
+_:x biom:hasfpImage fpfile:496.
+_:x biom:hasfpImage  _:fpa.
      
 _:y  biom:hasfpImage _:fpb.
 _:fpb biom:matches _:fpa.

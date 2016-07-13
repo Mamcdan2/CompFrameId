@@ -313,9 +313,24 @@ _:i5b a sitterms:TouchInfon;
 
 # -----------------------------------------------                   
             
-# The situation where a mugshot was created and filed
-sit:s6 a sitterms:Situation;                                                        
-    sitterms:hasInfon   _:i6a, _:i6b, _:i6c, _:i6d;
+# The situations where a mugshot was created and filed
+sit:s6a a sitterms:Situation;                                                        
+    sitterms:hasInfon   _:i6a;
+    sitterms:spacialLoc sit:facePicLoc;
+    sitterms:tempLoc    sit:facePicTime. #again, these all should really be separate times
+
+sit:s6b a sitterms:Situation;                                                        
+    sitterms:hasInfon   _:i6b;
+    sitterms:spacialLoc sit:facePicLoc;
+    sitterms:tempLoc    sit:facePicTime.
+
+sit:s6c a sitterms:Situation;                                                        
+    sitterms:hasInfon   _:i6c;
+    sitterms:spacialLoc sit:facePicLoc;
+    sitterms:tempLoc    sit:facePicTime.
+
+sit:s6d a sitterms:Situation;                                                        
+    sitterms:hasInfon   _:i6d;
     sitterms:spacialLoc sit:facePicLoc;
     sitterms:tempLoc    sit:facePicTime.
 

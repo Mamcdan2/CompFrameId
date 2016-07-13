@@ -298,7 +298,6 @@ def zhang_combine(mass1, mass2):
         mass3[n]/=k
     return mass3
 
-print "Testing that this import worked"
 ##mass1 = make_mass('fp_mass.txt')
 ###This should always be 1: sum of all the masses input
 ##print "The sum is %.3f" % sum(mass1.values())
