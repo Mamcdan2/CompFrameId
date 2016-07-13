@@ -243,7 +243,7 @@ _:i14 a sitterms:OnInfon;
 
 # The situations where an officer takes a person's fingerprint
 sit:s3a a sitterms:Situation;
-    sitterms:hasInfon   _:i3a.
+    sitterms:hasInfon   _:i3a;
     sitterms:spacialLoc sit:fpFileLoc;
     sitterms:tempLoc    sit:fpFileTime. 
 
