@@ -3,7 +3,6 @@ import java.io.InputStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 
-import org.python.core.PyInstance;
 import org.python.core.PyObject;
 import org.python.core.PyString;
 import org.python.util.PythonInterpreter;
