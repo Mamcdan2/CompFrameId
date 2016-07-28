@@ -1,7 +1,9 @@
 @prefix  rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
 @prefix  rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
 @prefix  foaf: <http://xmlns.com/foaf/0.1/>.
+@prefix  xsd:         <http://www.w3.org/2001/XMLSchema#> .
 @prefix  :     <http://esterline.ncat.edu/lawenforcement#>.
+
 
 :LawEnforcement a rdfs:Class. # What is this for?
 
@@ -11,3 +13,7 @@
 :AdminOfficer    rdfs:subClassOf :Officer.
 :Investigator    rdfs:subClassOf :Officer.
 :ForensicAnalyst rdfs:subClassOf :Officer.
+
+:Reliability a rdf:Property;
+    rdfs:domain :Officer;
+    rdfs:range xsd:literal .

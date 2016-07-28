@@ -71,7 +71,7 @@
 ###################################################################
 
 # The situations 
-#  s1: The id-siutation where the fingerprint on the doorknob is
+#  s1: The id-situtation where the fingerprint on the doorknob is
 #         matched against the one on file
 #  s3: Where an officer takes a person's fingerprint on file
 #  s4: Where someone leaves a fingerprint on the doorknob
@@ -79,11 +79,29 @@
 ###################################################################
 
 # Typing information
-officer:117 a lawterms:ForensicAnalyst; # The analyst in the id-situation (s1)
-    foaf:name "Rita Flores".
+officer:117 a lawterms:ForensicAnalyst; # An analyst in the id-situation (s1)
+    foaf:name "Rita Flores";
+    lawterms:Reliability ".91" .
 
-officer:296 a lawterms:AdminOfficer;    # This officer takes all the fingerprints (s3)
-    foaf:name "Shelby Brown".
+officer:118 a lawterms:ForensicAnalyst; # Another analyst in the id-situation (s1)
+    foaf:name "Marvin Campbell";
+    lawterms:Reliability ".76" .
+
+officer:296 a lawterms:AdminOfficer;    # This officer takes fingerprints for suspect 201 (s3a)
+    foaf:name "Shelby Brown";
+    lawterms:Reliability ".88".
+
+officer:297 a lawterms:AdminOfficer;    # This officer takes fingerprints for suspect 202 (s3b)
+    foaf:name "Joshua Felix";
+    lawterms:Reliability ".84".
+
+officer:298 a lawterms:AdminOfficer;    # This officer takes fingerprints for suspect 203 (s3c)
+    foaf:name "Luther Norman";
+    lawterms:Reliability ".91".
+
+officer:299 a lawterms:AdminOfficer;    # This officer takes fingerprints for suspect 204 (s3d)
+    foaf:name "Judith Chester";
+    lawterms:Reliability ".92".
 
 insys:201 a foaf:Suspect;               # The suspect (s1, s3, s4)
     recterms:hasRecord rec:578.
@@ -194,7 +212,7 @@ _:i11b a sitterms:AnalystMatchingFpInfon;
     sitterms:hasPolarity  sitterms:PositivePolarity.
 
 _:i11b a sitterms:AnalystMatchingFpInfon;
-    sitterms:fpAnalyst officer:117;
+    sitterms:fpAnalyst officer:118;
     sitterms:fpObserved forensicfp:822;
     sitterms:fpRecorded fpfile:498;
     sitterms:hasPolarity  sitterms:PositivePolarity.
@@ -208,28 +226,28 @@ _:i11b a sitterms:AnalystMatchingFpInfon;
 _:i1a a sitterms::SimilarFpInfon;
     sitterms:fpObserved forensicfp:822;
     sitterms:fpRecorded fpfile:496;
-    sitterms:simMeasure "0.94";
+    sitterms:simMeasure "0.92";
     sitterms:simProc similar:Proc1;
     sitterms:hasPolarity  sitterms:PositivePolarity.
 
 _:i1b a sitterms::SimilarFpInfon;
     sitterms:fpObserved forensicfp:822;
     sitterms:fpRecorded fpfile:497;
-    sitterms:simMeasure "0.03";
+    sitterms:simMeasure "0.09";
     sitterms:simProc similar:Proc1;
     sitterms:hasPolarity  sitterms:PositivePolarity.
 
 _:i1c a sitterms::SimilarFpInfon;
     sitterms:fpObserved forensicfp:822;
     sitterms:fpRecorded fpfile:498;
-    sitterms:simMeasure "0.72";
+    sitterms:simMeasure "0.68";
     sitterms:simProc similar:Proc1;
     sitterms:hasPolarity  sitterms:PositivePolarity.
 
 _:i1d a sitterms::SimilarFpInfon;
     sitterms:fpObserved forensicfp:822;
     sitterms:fpRecorded fpfile:499;
-    sitterms:simMeasure "0.38";
+    sitterms:simMeasure "0.47";
     sitterms:simProc similar:Proc1;
     sitterms:hasPolarity  sitterms:PositivePolarity.
 
@@ -272,19 +290,19 @@ _:i3a a sitterms:TakeFpInfon;
 _:i3b a sitterms:TakeFpInfon;		
     sitterms:fpSubject insys:202;
     sitterms::fpRecorded fpfile:497;
-    sitterms:fpTakingOfficer officer:296;
+    sitterms:fpTakingOfficer officer:297;
     sitterms:hasPolarity  sitterms:PositivePolarity.
 
 _:i3c a sitterms:TakeFpInfon;		
     sitterms:fpSubject insys:203;
     sitterms::fpRecorded fpfile:498;
-    sitterms:fpTakingOfficer officer:296;
+    sitterms:fpTakingOfficer officer:298;
     sitterms:hasPolarity  sitterms:PositivePolarity.
 
 _:i3d a sitterms:TakeFpInfon;		
     sitterms:fpSubject insys:204;
     sitterms::fpRecorded fpfile:499;
-    sitterms:fpTakingOfficer officer:296;
+    sitterms:fpTakingOfficer officer:299;
     sitterms:hasPolarity  sitterms:PositivePolarity.
 
 # --------------------------------------------

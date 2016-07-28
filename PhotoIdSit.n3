@@ -82,7 +82,7 @@
 ###################################################################
 
 # The situations:
-#  s2:  The id-siutation with the face in the group shot matching with the mug shot
+#  s2:  The id-situtation with the face in the group shot matching with the mug shot
 #  s5:  Where a group photo was taken
 #  s5a: The situation that is photographed in situation s5
 #  s6:  Where a mugshot was created and filed
@@ -91,10 +91,12 @@
 
 # Typing information
 officer:118 a lawterms:ForensicAnalyst; # The analyst in the id-situation (s2)
-    foaf:name  "Joe Friday".     # CHANGE: From '117' to '118' so different from s1
+    foaf:name  "Joe Friday";
+    lawterms:Reliability "0.78".     # CHANGE: From '117' to '118' so different from s1
 
 officer:622 a lawterms:AdminOfficer;    # The officer taking the mugshot (s6)
-    foaf:name "Helen Rogers".
+    foaf:name "Helen Rogers";
+    lawterms:Reliability "0.99".
 
 insys:201 a foaf:Suspect;               # The suspect (in s2, s5, s6)
     recterms:hasRecord rec:578.      # SAME as in s1, s3, s4
