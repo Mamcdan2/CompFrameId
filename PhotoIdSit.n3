@@ -82,10 +82,10 @@
 ###################################################################
 
 # The situations:
-#  s2:  The id-situtation with the face in the group shot matching with the mug shot
-#  s5:  Where a group photo was taken
-#  s5a: The situation that is photographed in situation s5
-#  s6:  Where a mugshot was created and filed
+#  s2:  The id-situation with the face in the group shot matching with the mug shot
+#  s6(a-d):  Where a mugshot was created and filed
+#  s7:  Where a group photo was taken
+#  s8: The situation that is photographed in situation s7: the described situation
 
 ################################################################
 
@@ -293,15 +293,15 @@ _:i2d a sitterms:SimilarPicInfon;
 
 # The situation where a group photo was taken
 
-sit:s5 a sitterms:Situation;
-    sitterms:hasInfon   _:i5;
+sit:s7 a sitterms:Situation;
+    sitterms:hasInfon   _:i7;
     sitterms:spacialLoc sit:socialLoc;
     sitterms:tempLoc    sit:socialTime.
 
-_:15 a sitterms:ForensicPicInfon;
+_:i7 a sitterms:ForensicPicInfon;
     sitterms:forPhotographer officer:753;  # The person taking the photo
     sitterms:forCamera  aobject:camera-15; # The camera used
-    sitterms:picturedSit  sit:s5a;         # The situation photographed
+    sitterms:picturedSit  sit:s8;         # The situation photographed
     sitterms:forPicProduced  fshot:812;    # The resulting photo
     sitterms:hasPolarity  sitterms:PositivePolarity. 
 
@@ -309,23 +309,24 @@ _:15 a sitterms:ForensicPicInfon;
 
 # The situation that is photographed in situation sit:s5
 # There is a group two members of which are insys:201 (our culprit)
-# and insys:563. And insys:201 is touching the doorknob.
+# and insys:203. And insys:201 is touching the doorknob.
 
-sit:s5a a sitterms:Situation;
-    sitterms:hasInfon   _:i5a, _:i5b;
+sit:s8 a sitterms:Situation;
+    sitterms:hasInfon   _:i8a, _:i8b;
     sitterms:inSituation group:5342;
     sitterms:spacialLoc sit:socialLocSub;
     sitterms:tempLoc    sit:socialTimeSup .
 
-#_:i5 a sitterms:InSitInfon;
-#    sitterms:inSituation sit:s5a;
-#    sitterms:situationHas group:5342;
-#    sitterms:hasPolarity sitterms:PositivePolarity .
+#This infon is now uncommented: not sure why it was removed or if it should be replaced
+_:i8a a sitterms:InSitInfon;
+    sitterms:inSituation sit:s5a;
+    sitterms:situationHas group:5342;
+    sitterms:hasPolarity sitterms:PositivePolarity .
 
 group:5342 a foaf:Group;
-    foaf:member insys:201, insys:563.
+    foaf:member insys:201, insys:203.
 
-_:i5b a sitterms:TouchInfon;
+_:i8b a sitterms:TouchInfon;
     sitterms:toucher insys:201;
     sitterms:touched fobject:409;
     sitterms:hasPolarity sitterms:PositivePolarity .

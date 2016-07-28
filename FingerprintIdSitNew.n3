@@ -27,6 +27,9 @@
 #                    Id numbers of persons of interest (Replaced by rec)
 #@prefix  poi:         <http://esterline.ncat.edu/personofinterest#>. 
 
+# id numbers of csi professionals.
+@prefix  csi:     <http://esterline.ncat.edu/csi#>.
+
 #       Schema for objects
 @prefix  objectterms: <http://esterline.ncat.edu/objects#>.
 #                    Id numbers for furniture
@@ -73,8 +76,9 @@
 # The situations 
 #  s1: The id-situtation where the fingerprint on the doorknob is
 #         matched against the one on file
-#  s3: Where an officer takes a person's fingerprint on file
+#  s3(a-d): Where an officer takes a person's fingerprint on file
 #  s4: Where someone leaves a fingerprint on the doorknob
+#  s5: Where the csi person copies the fingerprint from the doorknob
 
 ###################################################################
 
@@ -315,12 +319,21 @@ sit:s4 a sitterms:Situation;
     sitterms:spacialLoc sit:socialLoc;
     sitterms:tempLoc    sit:socialTime.
 
-#This infon has been taken out
-#_:i4 a sitterms:LeaveFpInfon;
-#    sitterms:fpProducer insys:201;
-#    sitterms:fpLeft forensicfp:822;
-#    sitterms:fpOn fobject:409;
-#    sitterms:hasPolarity  sitterms:PositivePolarity.
+# --------------------------------------------
+
+# The situation where officers take the fingerprint from the doorknob
+
+sit:s5 a sitterms:LiftFingerprintSituation;
+	sitterms:supports _:i5;
+	sitterms:spacialLoc sit:socialLocSub;
+	sitterms:tempLoc    sit:socialTimeSup.
+
+_:i5 a sitterms:LiftFingerprintInfon;
+	sitterms:fpLeft forensicfp:822;
+	sitterms:fpOn   fobject:409;
+	sitterms:fpLiftingOfficer csi:532;
+	sitterms:fpLifted     forensicfp:652;
+	sitterms:hasPolarity  sitterms:PositivePolarity. 
 
 # --------------------------------------------
 
