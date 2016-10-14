@@ -85,27 +85,27 @@
 # Typing information
 officer:117 a lawterms:ForensicAnalyst; # An analyst in the id-situation (s1)
     foaf:name "Rita Flores";
-    lawterms:Reliability ".91" .
+    lawterms:Reliability ".80" .
 
 officer:118 a lawterms:ForensicAnalyst; # Another analyst in the id-situation (s1)
     foaf:name "Marvin Campbell";
-    lawterms:Reliability ".76" .
+    lawterms:Reliability ".91" .
 
 officer:296 a lawterms:AdminOfficer;    # This officer takes fingerprints for suspect 201 (s3a)
     foaf:name "Shelby Brown";
-    lawterms:Reliability ".88".
+    lawterms:Reliability ".98".
 
 officer:297 a lawterms:AdminOfficer;    # This officer takes fingerprints for suspect 202 (s3b)
     foaf:name "Joshua Felix";
-    lawterms:Reliability ".84".
+    lawterms:Reliability ".86".
 
 officer:298 a lawterms:AdminOfficer;    # This officer takes fingerprints for suspect 203 (s3c)
     foaf:name "Luther Norman";
-    lawterms:Reliability ".91".
+    lawterms:Reliability ".81".
 
 officer:299 a lawterms:AdminOfficer;    # This officer takes fingerprints for suspect 204 (s3d)
     foaf:name "Judith Chester";
-    lawterms:Reliability ".92".
+    lawterms:Reliability ".86".
 
 insys:201 a foaf:Suspect;               # The suspect (s1, s3, s4)
     recterms:hasRecord rec:578.
@@ -203,7 +203,7 @@ sit:s1 a sitterms:Situation;
     sitterms:spacialLoc sit:matchLoc;		#It’d be nice to move time and location out to the infons
     sitterms:tempLoc    sit:matchTime.
 
-_:i11a a sitterms:AnalystMatchingFpInfon;	#The same analyst matches all of the fingerprints
+_:i11a a sitterms:AnalystMatchingFpInfon;	#The same analyst matches many of the fingerprints
     sitterms:fpAnalyst officer:117;
     sitterms:fpObserved forensicfp:822;
     sitterms:fpRecorded fpfile:496;
@@ -215,43 +215,43 @@ _:i11b a sitterms:AnalystMatchingFpInfon;
     sitterms:fpRecorded fpfile:497;
     sitterms:hasPolarity  sitterms:PositivePolarity.
 
-_:i11b a sitterms:AnalystMatchingFpInfon;
+_:i11c a sitterms:AnalystMatchingFpInfon;
     sitterms:fpAnalyst officer:118;
     sitterms:fpObserved forensicfp:822;
     sitterms:fpRecorded fpfile:498;
     sitterms:hasPolarity  sitterms:PositivePolarity.
 
-_:i11b a sitterms:AnalystMatchingFpInfon;
+_:i11d a sitterms:AnalystMatchingFpInfon;
     sitterms:fpAnalyst officer:117;
     sitterms:fpObserved forensicfp:822;
     sitterms:fpRecorded fpfile:499;
     sitterms:hasPolarity  sitterms:PositivePolarity.
 
-_:i1a a sitterms::SimilarFpInfon;
+_:i1a a sitterms:SimilarFpInfon;
     sitterms:fpObserved forensicfp:822;
     sitterms:fpRecorded fpfile:496;
-    sitterms:simMeasure "0.92";
+    sitterms:simMeasure "0.43";
     sitterms:simProc similar:Proc1;
     sitterms:hasPolarity  sitterms:PositivePolarity.
 
-_:i1b a sitterms::SimilarFpInfon;
+_:i1b a sitterms:SimilarFpInfon;
     sitterms:fpObserved forensicfp:822;
     sitterms:fpRecorded fpfile:497;
-    sitterms:simMeasure "0.09";
+    sitterms:simMeasure "0.66";
     sitterms:simProc similar:Proc1;
     sitterms:hasPolarity  sitterms:PositivePolarity.
 
-_:i1c a sitterms::SimilarFpInfon;
+_:i1c a sitterms:SimilarFpInfon;
     sitterms:fpObserved forensicfp:822;
     sitterms:fpRecorded fpfile:498;
-    sitterms:simMeasure "0.68";
+    sitterms:simMeasure "0.49";
     sitterms:simProc similar:Proc1;
     sitterms:hasPolarity  sitterms:PositivePolarity.
 
-_:i1d a sitterms::SimilarFpInfon;
+_:i1d a sitterms:SimilarFpInfon;
     sitterms:fpObserved forensicfp:822;
     sitterms:fpRecorded fpfile:499;
-    sitterms:simMeasure "0.47";
+    sitterms:simMeasure "0.57";
     sitterms:simProc similar:Proc1;
     sitterms:hasPolarity  sitterms:PositivePolarity.
 
@@ -287,25 +287,25 @@ sit:s3d a sitterms:Situation;
 
 _:i3a a sitterms:TakeFpInfon;
     sitterms:fpSubject insys:201;
-    sitterms::fpRecorded fpfile:496;
+    sitterms:fpRecorded fpfile:496;
     sitterms:fpTakingOfficer officer:296;
     sitterms:hasPolarity  sitterms:PositivePolarity.
 
 _:i3b a sitterms:TakeFpInfon;		
     sitterms:fpSubject insys:202;
-    sitterms::fpRecorded fpfile:497;
+    sitterms:fpRecorded fpfile:497;
     sitterms:fpTakingOfficer officer:297;
     sitterms:hasPolarity  sitterms:PositivePolarity.
 
 _:i3c a sitterms:TakeFpInfon;		
     sitterms:fpSubject insys:203;
-    sitterms::fpRecorded fpfile:498;
+    sitterms:fpRecorded fpfile:498;
     sitterms:fpTakingOfficer officer:298;
     sitterms:hasPolarity  sitterms:PositivePolarity.
 
 _:i3d a sitterms:TakeFpInfon;		
     sitterms:fpSubject insys:204;
-    sitterms::fpRecorded fpfile:499;
+    sitterms:fpRecorded fpfile:499;
     sitterms:fpTakingOfficer officer:299;
     sitterms:hasPolarity  sitterms:PositivePolarity.
 

@@ -92,31 +92,31 @@
 # Typing information
 officer:128 a lawterms:ForensicAnalyst; # An analyst in the id-situation (s2)
     foaf:name  "Patrick Fowler";
-    lawterms:Reliability "0.78".     # CHANGE: From '118' to '128' so different from s1
+    lawterms:Reliability "0.99".     # CHANGE: From '118' to '128' so different from s1
 
 officer:129 a lawterms:ForensicAnalyst; # An analyst in the id-situation (s2)
     foaf:name  "Amanda Hyde";
-    lawterms:Reliability "0.93".
+    lawterms:Reliability "0.98".
 
 officer:130 a lawterms:ForensicAnalyst; # An analyst in the id-situation (s2)
     foaf:name  "Allen Stubbs";
-    lawterms:Reliability "0.86".
+    lawterms:Reliability "0.78".
 
 officer:622 a lawterms:AdminOfficer;    # The officer taking the mugshot (s6a)
     foaf:name "Helen Rogers";
-    lawterms:Reliability "0.98".
+    lawterms:Reliability "0.93".
 
 officer:623 a lawterms:AdminOfficer;    # The officer taking the mugshot (s6b)
     foaf:name "Helen Rogers";
-    lawterms:Reliability "0.91".
+    lawterms:Reliability "0.96".
 
 officer:624 a lawterms:AdminOfficer;    # The officer taking the mugshot (s6c)
     foaf:name "Anna Leeson";
-    lawterms:Reliability "0.95".
+    lawterms:Reliability "0.91".
 
 officer:625 a lawterms:AdminOfficer;    # The officer taking the mugshot (s6d)
     foaf:name "Jerome Thompson";
-    lawterms:Reliability "0.86".
+    lawterms:Reliability "0.8".
 
 insys:201 a foaf:Suspect;               # The suspect (in s2, s5, s6)
     recterms:hasRecord rec:578.      # SAME as in s1, s3, s4
@@ -264,28 +264,28 @@ _:i20d a sitterms:AnalystMatchingPicInfon;
 _:i2a a sitterms:SimilarPicInfon;
     sitterms:picObserved fshot:8121;  # Relevant part of the forensic group photo
     sitterms:picRecorded mshot:314;   # The mug shot
-    sitterms:simPicMeasure "0.95";    # The similarity measure between the 2
+    sitterms:simPicMeasure "0.39";    # The similarity measure between the 2
     sitterms:simPicProc similar:sim2; # The procedure computing the similarity
     sitterms:hasPolarity  sitterms:PositivePolarity . 
 
 _:i2b a sitterms:SimilarPicInfon;
     sitterms:picObserved fshot:8121;  # Relevant part of the forensic group photo
     sitterms:picRecorded mshot:315;   # The mug shot
-    sitterms:simPicMeasure "0.67";    # The similarity measure between the 2
+    sitterms:simPicMeasure "0.68";    # The similarity measure between the 2
     sitterms:simPicProc similar:sim2; # The procedure computing the similarity
     sitterms:hasPolarity  sitterms:PositivePolarity . 
 
 _:i2c a sitterms:SimilarPicInfon;
     sitterms:picObserved fshot:8121;  # Relevant part of the forensic group photo
     sitterms:picRecorded mshot:316;   # The mug shot
-    sitterms:simPicMeasure "0.11";    # The similarity measure between the 2
+    sitterms:simPicMeasure "0.52";    # The similarity measure between the 2
     sitterms:simPicProc similar:sim2; # The procedure computing the similarity
     sitterms:hasPolarity  sitterms:PositivePolarity . 
 
 _:i2d a sitterms:SimilarPicInfon;
     sitterms:picObserved fshot:8121;  # Relevant part of the forensic group photo
     sitterms:picRecorded mshot:317;   # The mug shot
-    sitterms:simPicMeasure "0.20";    # The similarity measure between the 2
+    sitterms:simPicMeasure "0.71";    # The similarity measure between the 2
     sitterms:simPicProc similar:sim2; # The procedure computing the similarity
     sitterms:hasPolarity  sitterms:PositivePolarity . 
 

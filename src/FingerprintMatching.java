@@ -71,14 +71,15 @@ public class FingerprintMatching {
 		Double[] sim = similarities.toArray(new Double[similarities.size()]);
 		String[] recordNums = ids.toArray(new String[ids.size()]);
 		Double total = 0.0;
-		for(int i=0; i<sim.length;i++){
-			//NEED TO SHIFT THE SIGMOID FUNCTION
-				sim[i]=1/(1+Math.pow(Math.E, 5*(-1*sim[i])+1));
-				if (sim[i]<=.5){sim[i] = 0.0;}
-				System.out.print(recordNums[i] + ", ");
-				System.out.println(sim[i]);
-				total+=sim[i];
-			
+		for(int i=0; i<sim.length-1;i++){
+			//First we apply the threshold
+			if (sim[i]>.65){sim[i] = 0.0;}
+			//Then a reverse sigmoid function (reversed by scaling by -8) with a cutpoint at 0.65
+			else{sim[i]=1/(1+Math.pow(Math.E, -8*(0.65-1*sim[i])));}
+			System.out.print(recordNums[i] + ", ");
+			System.out.println(sim[i]);
+			total+=sim[i];
+
 		}
 
 		//If the total is more than 1, normalize
@@ -94,12 +95,13 @@ public class FingerprintMatching {
 
 		PrintWriter w0 = new PrintWriter("unmodified_fp.txt");
 		for(int i=0; i<sim.length;i++){
+			System.out.println(recordNums[i]+" \t"+String.format("%.3f", sim[i]));
 			w0.print(recordNums[i]);
 			w0.print(" \t");
 			w0.println(String.format("%.3f", sim[i]));
 		}
 		w0.close();
-		
+
 		/*
 		 * Quick outline of following mass measures for the fpsit
 		 * 
@@ -135,7 +137,6 @@ public class FingerprintMatching {
 
 		for(int i=0; i<recordNums.length-1; i++){
 			String idNum = recordNums[i];
-
 			//SITUATION 1 MASS MODIFICATION for analyst ratings
 			StringBuffer s1qString = new StringBuffer();
 			s1qString.append(
@@ -144,7 +145,7 @@ public class FingerprintMatching {
 							"PREFIX biom: <"+ model.getNsPrefixURI("biom")+">"+
 							"PREFIX recterms: <"+ model.getNsPrefixURI("recterms")+">"+
 							"PREFIX insys: <"+ model.getNsPrefixURI("insys")+">"+
-							"SELECT ?rel "+
+							"SELECT ?rel ?fp"+
 							"WHERE { "
 							+"insys:"+idNum + " recterms:hasRecord ?rec ."
 							+"?rec biom:hasFpImage ?fp ."
@@ -157,11 +158,13 @@ public class FingerprintMatching {
 			QueryExecution s1qx = QueryExecutionFactory.create(s1query, model);
 			try{
 				ResultSet rs = s1qx.execSelect();
-				while(rs.hasNext()){
-					QuerySolution sol = rs.nextSolution();
-					sim[sim.length-1] += sim[i]*(1 - Double.valueOf(sol.get("?rel").toString()));
-					sim[i] *= Double.valueOf(sol.get("?rel").toString());
-				}
+				QuerySolution sol = rs.nextSolution();
+				System.out.println(sol);
+				double mult = Double.valueOf(sol.get("?rel").toString());
+				System.out.println(recordNums[i]+", "+mult+","+sim[i]*mult);
+				sim[sim.length-1] += sim[i]*(1 - mult);
+				sim[i] *= mult;
+
 			}
 			finally{ s1qx.close();}
 
@@ -254,12 +257,14 @@ public class FingerprintMatching {
 		Double[] photoSim = photoSimilarities.toArray(new Double[photoSimilarities.size()]);
 		String[] suspectNums = photoIds.toArray(new String[photoIds.size()]);
 		Double total2 = 0.0;
-		for(int i=0; i<photoSim.length;i++){
-			if (photoSim[i]<=.5){photoSim[i] = 0.0;}
+		for(int i=0; i<photoSim.length-1;i++){
+			if (photoSim[i]>.65){photoSim[i] = 0.0;}
 			else{
-				photoSim[i]=1/(1+Math.pow(Math.E, (-1*photoSim[i])));
+				photoSim[i]=1/(1+Math.pow(Math.E, -8*(0.65-1*photoSim[i])));
 				total2+=photoSim[i];
 			}
+			System.out.print(suspectNums[i] + ", ");
+			System.out.println(photoSim[i]);
 		}
 		//If the total is more than 1, normalize
 		if (total2>1){
@@ -365,6 +370,7 @@ public class FingerprintMatching {
 		}
 		w2.close();
 
+		
 		//Using jython to call methods from the ds python code on our fp data
 
 		PythonInterpreter interpreter = new PythonInterpreter();
